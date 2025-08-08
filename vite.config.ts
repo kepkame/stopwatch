@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { VitePWA } from 'vite-plugin-pwa';
+import { VitePWA, type ManifestOptions } from 'vite-plugin-pwa';
 
-const manifest = {
+const manifest: Partial<ManifestOptions> | false = {
   theme_color: '#8936FF',
   background_color: '#ffffff',
   icons: [
@@ -19,9 +19,23 @@ const manifest = {
       type: 'image/png',
     },
   ],
+  screenshots: [
+    {
+      src: 'screenshots/desktop.png',
+      sizes: '1024x1024',
+      type: 'image/png',
+      form_factor: 'wide',
+    },
+    {
+      src: 'screenshots/mobile.png',
+      sizes: '1024x1024',
+      type: 'image/png',
+      form_factor: 'narrow',
+    },
+  ],
   orientation: 'any',
   display: 'standalone',
-  dir: 'auto',
+  dir: 'ltr',
   lang: 'en',
   name: 'SwopWatch',
   start_url: '/',
@@ -37,7 +51,7 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,webp}'],
       },
-      minifest: manifest,
+      manifest: manifest,
     }),
   ],
 });
