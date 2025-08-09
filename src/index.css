@@ -18,11 +18,12 @@ a:hover {
 }
 
 body {
-  margin: 0;
+  font-size: 18px;
   display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  margin: 0;
+  place-items: center;
 }
 
 h1 {
@@ -31,13 +32,13 @@ h1 {
 }
 
 button {
-  padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
   background-color: #fe6100;
   border: none;
   border-radius: 8px;
+  padding: 0.6em 1.2em;
   transition: background-color 0.25s;
   cursor: pointer;
 }

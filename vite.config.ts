@@ -46,8 +46,14 @@ const manifest: Partial<ManifestOptions> | false = {
 export default defineConfig({
   resolve: {
     alias: {
+      '@': '/src',
       '@styles': '/src/styles',
       '@assets': '/src/assets',
+      '@components': '/src/components',
+      '@utils': '/src/utils',
+      '@types': '/src/types',
+      '@hooks': '/src/hooks',
+      '@store': '/src/store',
     },
   },
   plugins: [

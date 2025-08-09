@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/store';
-import { useElapsedTime } from '@/hooks/useElapsedTime';
-import { formatTime } from '@/utils/time/formatTime';
+import type { RootState } from '@store/store';
+import { useElapsedTime } from '@hooks/useElapsedTime';
+import { formatTime } from '@utils/time/formatTime';
 
 export const TimerDisplay: React.FC = () => {
   // Берём только инварианты — минимум ререндеров от Redux
