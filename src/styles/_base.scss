@@ -1,0 +1,131 @@
+@use 'sass:color';
+@use '@styles/variables';
+@use '@styles/functions';
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+*:focus {
+  outline: 2px solid variables.$color-primary-dark;
+  outline-offset: 2px;
+}
+
+:root {
+  font-size: 18px;
+  line-height: 1.5;
+  font-family: variables.$font-family-base;
+  font-weight: 500;
+  color: variables.$color-text-primary;
+
+  /* color-scheme: light dark; */
+}
+
+html {
+  height: 100%;
+  // min-width: 360px;
+  min-width: max(360px, 100vw);
+
+  font-size: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+
+  // min-width: 360px;
+  min-width: max(360px, 100vw);
+  min-height: 100vh;
+
+  box-sizing: border-box;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: variables.$font-family-base;
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0.67rem 0;
+}
+
+h1 {
+  font-size: 1.7rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.375rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+}
+
+a {
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-decoration: none;
+  color: variables.$color-primary;
+
+  &:hover {
+    text-decoration: underline;
+    color: variables.$color-primary-dark;
+  }
+}
+
+button {
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+
+  vertical-align: middle;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+// Скрытие стандартного фокуса для мыши
+.js-focus-visible :focus:not(.focus-visible) {
+  outline: none;
+}
+
+// Сильный индикатор фокуса для клавиатуры
+.js-focus-visible .focus-visible {
+  outline: 2px solid variables.$color-primary-dark;
+  outline-offset: 2px;
+}
+
+.visually-hidden:not(:focus):not(:active) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  bottom: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}

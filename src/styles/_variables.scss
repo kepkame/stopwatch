@@ -1,0 +1,48 @@
+@use 'sass:color';
+@use '@styles/functions';
+
+$color-primary: hsl(23, 100%, 50%);
+$color-primary-light: hsl(23, 84%, 56%);
+$color-primary-dark: hsl(23, 100%, 44%);
+$color-primary-gradient: functions.primary-gradient(135deg, $color-primary);
+$color-primary-gradient-dark: functions.primary-gradient(
+  135deg,
+  $color-primary-dark
+);
+
+$color-background: #efefef;
+
+$color-text-primary: #353535;
+$color-text-secondary: #ffffff;
+
+$font-family-base: 'Montserrat', system-ui, Avenir, Helvetica, Arial, sans-serif;
+$font-family-numbers: 'Roboto Mono', system-ui, Avenir, Helvetica, Arial,
+  sans-serif;
+
+$color-pench: #fc9a82;
+$color-green: #01b6ae;
+$color-blue: #69a9fc;
+$color-purple: #7b94f6;
+$color-pink: #f27b99;
+
+$deg-gradient: 135deg;
+$color-pench-gradient: linear-gradient($deg-gradient, #f7c077 0%, #fc9a82 100%);
+$color-green-gradient: linear-gradient($deg-gradient, #0bc785 0%, #01b6ae 100%);
+$color-blue-gradient: linear-gradient($deg-gradient, #3bc9fb 0%, #69a9fc 100%);
+$color-purple-gradient: linear-gradient(
+  $deg-gradient,
+  #b986fe 0%,
+  #7b94f6 100%
+);
+$color-pink-gradient: linear-gradient($deg-gradient, #fa80d2 0%, #f27b99 100%);
+
+$border-radius: 0.5rem;
+
+$grid-breakpoints-sm: 576px;
+$grid-breakpoints-md: 767px;
+$grid-breakpoints-lg: 992px;
+$container-max-width: 1200px;
+$visualization-width: 482px;
+
+$duration: 0.25s;
+$duration-fast: 0.15s;

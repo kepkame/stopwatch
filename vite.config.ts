@@ -44,6 +44,12 @@ const manifest: Partial<ManifestOptions> | false = {
 
 // https://vite.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@styles': '/src/styles',
+      '@assets': '/src/assets',
+    },
+  },
   plugins: [
     react(),
     VitePWA({

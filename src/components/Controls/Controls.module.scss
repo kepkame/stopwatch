@@ -1,0 +1,20 @@
+.controls {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 16px 0 24px;
+}
+
+.button-controls {
+  width: 128px;
+}
+
+@media (min-width: 768px) {
+  .controls {
+    position: static;
+  }
+}

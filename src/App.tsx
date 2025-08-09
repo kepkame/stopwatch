@@ -1,24 +1,20 @@
-import { useState } from 'react';
-import './App.css';
+import Header from './components/Header/Header';
+import LapList from './components/LapList/LapList';
+import Controls from './components/Controls/Controls';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Provider store={store}>
+      <Header />
+      <main>
+        <div className="container">
+          <Controls />
+          <LapList measuring={[]} />
+        </div>
+      </main>
+    </Provider>
   );
 }
 

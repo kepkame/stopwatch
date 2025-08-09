@@ -1,0 +1,122 @@
+@use 'sass:color';
+@use '@styles/variables';
+@use '@styles/functions';
+
+/* Register CSS Custom Properties as typed colors to enable smooth transitions */
+@property --grad-c1 {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #{color.adjust(variables.$color-primary, $lightness: 10%)};
+}
+
+@property --grad-c2 {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #{color.adjust(variables.$color-primary, $lightness: 7%)};
+}
+
+@property --grad-c3 {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #{color.adjust(variables.$color-primary, $lightness: -7%)};
+}
+
+@property --grad-c4 {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #{color.adjust(variables.$color-primary, $lightness: -9%)};
+}
+
+.btn {
+  font-size: 0.875rem;
+  color: variables.$color-text-secondary;
+  background-color: variables.$color-primary-light;
+  border: none;
+  border-radius: variables.$border-radius;
+  padding: 10px 20px 9px;
+  cursor: pointer;
+  transition: background-color variables.$duration ease-in-out;
+
+  &:hover {
+    background-color: variables.$color-primary-dark;
+  }
+
+  &--outline {
+    color: variables.$color-primary-light;
+    background-color: transparent;
+    border: 2px solid variables.$color-primary-light;
+    padding: 8px 18px 7px;
+    transition: color variables.$duration ease-in-out,
+      background-color variables.$duration ease-in-out,
+      border-color variables.$duration ease-in-out;
+
+    &:hover {
+      color: variables.$color-text-secondary;
+      background-color: variables.$color-primary-dark;
+      border-color: variables.$color-primary-dark;
+    }
+  }
+
+  &--icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 6px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      stroke: variables.$color-text-secondary;
+      transition: stroke variables.$duration ease-in-out;
+    }
+
+    &.btn--outline svg {
+      stroke: variables.$color-primary-light;
+    }
+
+    &.btn--outline:hover svg {
+      stroke: variables.$color-text-secondary;
+    }
+  }
+
+  &--gradient {
+    --grad-c1: #{color.adjust(variables.$color-primary, $lightness: 10%)};
+    --grad-c2: #{color.adjust(variables.$color-primary, $lightness: 7%)};
+    --grad-c3: #{color.adjust(variables.$color-primary, $lightness: -7%)};
+    --grad-c4: #{color.adjust(variables.$color-primary, $lightness: -9%)};
+
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: variables.$color-text-secondary;
+    background-color: variables.$color-primary;
+    // background-image: variables.$color-primary-gradient;
+
+    background: linear-gradient(
+      135deg,
+      var(--grad-c1) 0%,
+      var(--grad-c2) 10%,
+      var(--grad-c3) 90%,
+      var(--grad-c4) 100%
+    );
+    border: none;
+    border-radius: 0.5em;
+    padding: 12px 16px 11px;
+    transition: --grad-c1 variables.$duration ease-in-out,
+      --grad-c2 variables.$duration ease-in-out,
+      --grad-c3 variables.$duration ease-in-out,
+      --grad-c4 variables.$duration ease-in-out;
+    cursor: pointer;
+
+    // &:hover {
+    //   background-color: variables.$color-primary-dark;
+    //   background-image: variables.$color-primary-gradient-dark;
+    // }
+    &:hover {
+      --grad-c1: #{color.adjust(variables.$color-primary, $lightness: 8%)};
+      --grad-c2: #{color.adjust(variables.$color-primary, $lightness: 12%)};
+      --grad-c3: #{color.adjust(variables.$color-primary, $lightness: -15%)};
+      --grad-c4: #{color.adjust(variables.$color-primary, $lightness: -20%)};
+      // background-color: variables.$color-primary-dark;
+    }
+  }
+}

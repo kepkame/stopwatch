@@ -1,0 +1,54 @@
+@use '@styles/variables';
+
+.header {
+  padding: 8px 0;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 24px;
+  height: 24px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+  margin: 0;
+
+  span {
+    font-weight: 700;
+  }
+}
+
+.settings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  border: none;
+  border-radius: variables.$border-radius;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+
+  svg {
+    width: 24px;
+    height: 24px;
+    stroke: variables.$color-text-primary;
+    transition: stroke variables.$duration-fast ease-in-out;
+  }
+
+  &:hover svg {
+    stroke: variables.$color-primary;
+  }
+}

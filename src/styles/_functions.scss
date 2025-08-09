@@ -1,0 +1,14 @@
+@use 'sass:color';
+
+@function primary-gradient($deg, $color) {
+  @return linear-gradient(
+    $deg,
+    color.adjust($color, $lightness: 10%) 0%,
+    // lighter by 10%
+    color.adjust($color, $lightness: 7%) 10%,
+    // lighter by 7%
+    color.adjust($color, $lightness: -7%) 90%,
+    // darker by 7%
+    color.adjust($color, $lightness: -9%) 100% // darker by 9%
+  );
+}
