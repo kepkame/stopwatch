@@ -9,12 +9,12 @@
   justify-content: center;
   gap: 24px;
   background-color: variables.$color-background;
-  padding: 12px 0 24px;
+  padding: 20px 0 24px;
   z-index: 2;
 }
 
 .button-controls {
-  width: 128px;
+  width: 140px;
 }
 
 @media (min-width: 768px) {

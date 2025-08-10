@@ -33,7 +33,7 @@
   background-color: variables.$color-primary-light;
   border: none;
   border-radius: variables.$border-radius;
-  padding: 10px 20px 9px;
+  padding: 12px 20px 11px;
   cursor: pointer;
   transition: background-color variables.$duration ease-in-out;
 
@@ -45,7 +45,7 @@
     color: variables.$color-primary-light;
     background-color: transparent;
     border: 2px solid variables.$color-primary-light;
-    padding: 8px 18px 7px;
+    padding: 10px 18px 9px;
     transition: color variables.$duration ease-in-out,
       background-color variables.$duration ease-in-out,
       border-color variables.$duration ease-in-out;
