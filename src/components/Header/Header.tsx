@@ -1,7 +1,7 @@
 import styles from './Header.module.scss';
 import { Settings } from 'lucide-react';
 
-const Header = () => {
+export const Header = () => {
   return (
     <header className={styles.header}>
       <div className="container">
@@ -30,5 +30,3 @@ const Header = () => {
     </header>
   );
 };
-
-export default Header;

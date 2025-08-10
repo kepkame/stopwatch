@@ -5,6 +5,7 @@
   font-family: variables.$font-family-numbers;
   line-height: 1.1;
   text-align: center;
+  background-color: variables.$color-background;
 
   &--long {
     font-size: 48px;

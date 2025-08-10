@@ -18,22 +18,49 @@
 }
 
 .lap {
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
   color: variables.$color-text-secondary;
   background-color: variables.$color-gray;
   background-image: variables.$color-gray-gradient;
   border-radius: variables.$border-radius;
   padding: 8px 16px;
-  // Управление свайпом: разрешаем вертикальную прокрутку, перехватываем горизонтальные жесты
+  // Swipe handling: allow vertical scrolling,
+  // intercept horizontal gestures
   touch-action: pan-y;
   user-select: none;
+
+  &__overlay {
+    position: absolute;
+    inset: 0 auto 0 0; /* left side, width grows */
+    width: 0;
+    will-change: width;
+    pointer-events: none;
+
+    &.rtl {
+      inset: 0 0 0 auto; /* right side, width grows to the left */
+    }
+
+    &.px20 {
+      border-radius: 8px 20px 20px 8px;
+    }
+    &.px20Rtl {
+      border-radius: 20px 8px 8px 20px;
+    }
+  }
+
+  &__content {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    z-index: 1;
+  }
 }
 
-// Палитра цветов (циклическая)
+// Color palette (cyclic)
 .color-0 {
   background-image: variables.$color-gray-gradient;
 }

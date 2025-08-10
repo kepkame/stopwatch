@@ -2,7 +2,7 @@ import LapItem from './LapItem';
 import type { LapListProps } from './LapList.types';
 import styles from './LapList.module.scss';
 
-const LapList: React.FC<LapListProps> = ({ measuring }) => {
+export const LapList: React.FC<LapListProps> = ({ measuring }) => {
   return (
     <div className={styles.results}>
       {measuring
@@ -20,5 +20,3 @@ const LapList: React.FC<LapListProps> = ({ measuring }) => {
     </div>
   );
 };
-
-export default LapList;

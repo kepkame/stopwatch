@@ -5,7 +5,7 @@ import { formatTime } from '@utils/time/formatTime';
 import styles from './TimerDisplay.module.scss';
 
 export const TimerDisplay: React.FC = () => {
-  // Берём только инварианты — минимум ререндеров от Redux
+  // Select only invariants — minimize re-renders from Redux
   const startEpochMs = useSelector((s: RootState) => s.stopwatch.startEpochMs);
   const accumulatedMs = useSelector(
     (s: RootState) => s.stopwatch.accumulatedMs
