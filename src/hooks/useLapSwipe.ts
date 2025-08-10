@@ -5,7 +5,7 @@ import {
   SWIPE_THRESHOLD_PX,
   MIN_SUCCESS_PX,
   SUCCESS_RATIO,
-} from './lapSwipeConfig';
+} from '@utils/lapSwipeConfig';
 
 export interface UseLapSwipeParams {
   onChangeColor(nextDelta: 1 | -1): void;
@@ -125,46 +125,34 @@ export const useLapSwipe = (
         window.removeEventListener(
           'pointermove',
           onMove as any,
-          {
-            capture: false,
-          } as any
+          { capture: false } as any
         );
         window.removeEventListener(
           'pointerup',
           onUp as any,
-          {
-            capture: false,
-          } as any
+          { capture: false } as any
         );
         window.removeEventListener(
           'pointercancel',
           onUp as any,
-          {
-            capture: false,
-          } as any
+          { capture: false } as any
         );
       };
 
       window.addEventListener(
         'pointermove',
         onMove as any,
-        {
-          passive: false,
-        } as any
+        { passive: false } as any
       );
       window.addEventListener(
         'pointerup',
         onUp as any,
-        {
-          passive: false,
-        } as any
+        { passive: false } as any
       );
       window.addEventListener(
         'pointercancel',
         onUp as any,
-        {
-          passive: false,
-        } as any
+        { passive: false } as any
       );
     },
     []

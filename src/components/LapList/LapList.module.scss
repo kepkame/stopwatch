@@ -7,6 +7,7 @@
   max-width: 360px;
   margin: 0 auto;
   margin-bottom: 90px;
+  contain: paint style;
 }
 
 .item {
@@ -19,6 +20,7 @@
 
 .lap {
   position: relative;
+  will-change: transform;
   overflow: hidden;
   color: variables.$color-text-secondary;
   background-color: variables.$color-gray;

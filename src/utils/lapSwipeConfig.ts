@@ -14,3 +14,5 @@ export const cyclicIndex = (
 ): number => {
   return (((base + delta) % size) + size) % size;
 };
+
+

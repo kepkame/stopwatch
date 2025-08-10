@@ -1,26 +1,21 @@
-import { memo } from 'react';
-import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
-import { motion } from 'motion/react';
-import { setLapColorIndex } from '@store/slices/stopwatchSlice';
+import { m } from 'motion/react';
+import { useLapSwipe } from '@hooks/useLapSwipe';
+import { cyclicIndex } from '@utils/lapSwipeConfig';
 import type { LapItemProps } from './LapList.types';
-import { PALETTE_SIZE, cyclicIndex } from './lapSwipeConfig';
-import { useLapSwipe } from './useLapSwipe';
 import styles from './LapList.module.scss';
 
-const LapItemComponent: React.FC<LapItemProps> = ({
+export const LapItem: React.FC<LapItemProps> = ({
   lap,
   time,
   diff,
   colorIndex,
+  onChangeColor,
 }) => {
-  const dispatch = useDispatch();
+  const EASE: [number, number, number, number] = [0.2, 0, 0, 1];
+  const DURATION_S = 0.4;
 
-  const changeColorBy = (delta: number) => {
-    const next =
-      (((colorIndex + delta) % PALETTE_SIZE) + PALETTE_SIZE) % PALETTE_SIZE;
-    dispatch(setLapColorIndex({ id: lap, colorIndex: next }));
-  };
+  const changeColorBy = (delta: 1 | -1) => onChangeColor(lap, delta);
 
   const {
     containerRef,
@@ -32,12 +27,21 @@ const LapItemComponent: React.FC<LapItemProps> = ({
     onPointerUp,
     onPointerCancel,
     onKeyDown,
-  } = useLapSwipe({ onChangeColor: (d) => changeColorBy(d) }, styles);
+  } = useLapSwipe({ onChangeColor: changeColorBy }, styles);
 
   const colorClass = colorClassFor(colorIndex);
 
   return (
-    <div
+    <m.div
+      layout={'position'}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration: DURATION_S,
+        ease: EASE,
+        layout: { duration: DURATION_S, ease: EASE },
+      }}
+      style={{ transformOrigin: 'top center' }}
       className={clsx(styles.lap, colorClass)}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
@@ -49,7 +53,7 @@ const LapItemComponent: React.FC<LapItemProps> = ({
       tabIndex={1}
       ref={containerRef}
     >
-      <motion.div
+      <m.div
         ref={overlayRef}
         className={clsx(
           styles['lap__overlay'],
@@ -70,9 +74,6 @@ const LapItemComponent: React.FC<LapItemProps> = ({
         <span className={styles.time}>{time}</span>
         <span className={styles.diff}>{diff}</span>
       </div>
-    </div>
+    </m.div>
   );
 };
-
-const LapItem = memo(LapItemComponent);
-export default LapItem;
