@@ -5,14 +5,18 @@ import styles from './LapList.module.scss';
 const LapList: React.FC<LapListProps> = ({ measuring }) => {
   return (
     <div className={styles.results}>
-      {measuring.reverse().map((item) => (
-        <LapItem
-          key={item.lap}
-          lap={item.lap}
-          time={item.time}
-          diff={item.diff}
-        />
-      ))}
+      {measuring
+        .slice()
+        .reverse()
+        .map((item) => (
+          <LapItem
+            key={item.lap}
+            lap={item.lap}
+            time={item.time}
+            diff={item.diff}
+            colorIndex={item.colorIndex}
+          />
+        ))}
     </div>
   );
 };

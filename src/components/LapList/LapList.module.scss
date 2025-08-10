@@ -1,4 +1,12 @@
+@use '@styles/variables';
+
 .results {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 360px;
+  margin: 0 auto;
+  margin-bottom: 90px;
 }
 
 .item {
@@ -10,10 +18,79 @@
 }
 
 .lap {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  color: variables.$color-text-secondary;
+  background-color: variables.$color-gray;
+  background-image: variables.$color-gray-gradient;
+  border-radius: variables.$border-radius;
+  padding: 8px 16px;
+  // Управление свайпом: разрешаем вертикальную прокрутку, перехватываем горизонтальные жесты
+  touch-action: pan-y;
+  user-select: none;
+}
+
+// Палитра цветов (циклическая)
+.color-0 {
+  background-image: variables.$color-gray-gradient;
+}
+.color-1 {
+  background-image: variables.$color-pench-gradient;
+}
+.color-2 {
+  background-image: variables.$color-green-gradient;
+}
+.color-3 {
+  background-image: variables.$color-blue-gradient;
+}
+.color-4 {
+  background-image: variables.$color-purple-gradient;
+}
+.color-5 {
+  background-image: variables.$color-pink-gradient;
+}
+
+.number,
+.time,
+.diff {
+  color: inherit;
+}
+
+.time,
+.diff {
+  text-align: right;
+  margin-left: auto;
+}
+
+.number {
+  width: 80px;
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .time {
+  width: 76px;
+  font-size: 14px;
+  font-family: variables.$font-family-numbers;
 }
 
 .diff {
+  width: 112px;
+  font-size: 18px;
+  font-family: variables.$font-family-numbers;
+}
+
+@media (min-width: 410px) {
+  .number {
+    width: 88px;
+    font-size: 20px;
+  }
+
+  .diff {
+    width: 124px;
+    font-size: 20px;
+  }
 }

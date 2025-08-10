@@ -1,4 +1,6 @@
 import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { store } from '@store/store';
 import './styles/app.scss';
 import App from './App.tsx';
 
@@ -9,4 +11,8 @@ registerSW({
   immediate: true,
 });
 
-createRoot(document.getElementById('root')!).render(<App />);
+createRoot(document.getElementById('root')!).render(
+  <Provider store={store}>
+    <App />
+  </Provider>
+);

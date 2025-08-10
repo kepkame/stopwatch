@@ -19,6 +19,7 @@ $font-family-base: 'Montserrat', system-ui, Avenir, Helvetica, Arial, sans-serif
 $font-family-numbers: 'Roboto Mono', system-ui, Avenir, Helvetica, Arial,
   sans-serif;
 
+$color-gray: #fc9a82;
 $color-pench: #fc9a82;
 $color-green: #01b6ae;
 $color-blue: #69a9fc;
@@ -26,6 +27,7 @@ $color-purple: #7b94f6;
 $color-pink: #f27b99;
 
 $deg-gradient: 135deg;
+$color-gray-gradient: linear-gradient($deg-gradient, #a1a1a1 0%, #797979 100%);
 $color-pench-gradient: linear-gradient($deg-gradient, #f7c077 0%, #fc9a82 100%);
 $color-green-gradient: linear-gradient($deg-gradient, #0bc785 0%, #01b6ae 100%);
 $color-blue-gradient: linear-gradient($deg-gradient, #3bc9fb 0%, #69a9fc 100%);

@@ -1,3 +1,5 @@
+@use '@styles/variables';
+
 .controls {
   position: fixed;
   bottom: 0;
@@ -6,7 +8,8 @@
   display: flex;
   justify-content: center;
   gap: 24px;
-  padding: 16px 0 24px;
+  background-color: variables.$color-background;
+  padding: 12px 0 24px;
 }
 
 .button-controls {
