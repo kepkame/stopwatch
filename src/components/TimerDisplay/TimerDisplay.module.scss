@@ -21,11 +21,9 @@
   padding: 4px 0;
   user-select: none;
   -webkit-user-select: none;
-  // keyboard focus handled globally in base; keep smooth
 }
 
 .displayClickable {
-  // clickable affordance
   cursor: pointer;
 }
 
@@ -46,16 +44,33 @@
   align-items: center;
   justify-content: center;
 
+  color: variables.$color-text-secondary;
   opacity: 0;
-  transform: translateY(8px) scale(0.98);
-  transition: opacity variables.$duration ease-in-out,
-    transform variables.$duration ease-in-out;
+  transform: translate(111px, 121px) scale(0.32);
+  transition: color variables.$duration ease-in-out,
+    opacity variables.$duration ease-in-out,
+    transform variables.$duration ease-in;
   pointer-events: none;
 }
 
+.altSoft {
+  opacity: 0.5;
+  transform: none;
+}
+
+.altPulse,
+.altPulse.altShown {
+  opacity: 0.5;
+}
+
 .altShown {
+  color: variables.$color-text-primary;
   opacity: 1;
   transform: translateY(0) scale(1);
+}
+
+.altSoft.altShown {
+  transform: none;
 }
 
 @media (min-width: 370px) {

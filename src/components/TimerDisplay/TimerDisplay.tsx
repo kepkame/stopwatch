@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { useCallback } from 'react';
 import { useTimerDisplay } from '@hooks/useTimerDisplay';
+import { useTimerAltAnimation } from '@hooks/useTimerAltAnimation';
 import styles from './TimerDisplay.module.scss';
 
 export const TimerDisplay: React.FC = () => {
@@ -17,6 +18,9 @@ export const TimerDisplay: React.FC = () => {
     ariaLabel,
     cycleMode,
   } = useTimerDisplay();
+
+  const { isAltShown, isSoftAltAnimation, isBlinkTransition, shouldBlink } =
+    useTimerAltAnimation(mode);
 
   const onClick = useCallback(() => {
     if (!changeTimeByTap) return;
@@ -62,7 +66,8 @@ export const TimerDisplay: React.FC = () => {
           <div
             className={clsx(
               styles.alt,
-              styles.altShown,
+              isBlinkTransition && shouldBlink && styles.altPulse,
+              isAltShown && styles.altShown,
               isDiffLong && styles['timer--long']
             )}
           >
@@ -74,7 +79,9 @@ export const TimerDisplay: React.FC = () => {
           <div
             className={clsx(
               styles.alt,
-              styles.altShown,
+              isSoftAltAnimation && styles.altSoft,
+              isBlinkTransition && shouldBlink && styles.altPulse,
+              (isSoftAltAnimation || isAltShown) && styles.altShown,
               isCountdownLong && styles['timer--long']
             )}
           >
