@@ -2,7 +2,7 @@
 
 .list {
   flex: 1 1 auto;
-  max-width: 360px;
+  max-width: 364px;
   width: 100%;
   margin: 0 auto;
   overflow-y: auto;
@@ -19,6 +19,7 @@
   gap: 8px;
   min-height: 0;
   contain: paint style;
+  padding: 4px;
 }
 
 .lap {
