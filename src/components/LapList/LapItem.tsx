@@ -5,13 +5,13 @@ import { cyclicIndex } from '@utils/lapSwipeConfig';
 import type { LapItemProps } from './LapList.types';
 import styles from './LapList.module.scss';
 
-export const LapItem: React.FC<LapItemProps> = ({
+export const LapItem = ({
   lap,
   time,
   diff,
   colorIndex,
   onChangeColor,
-}) => {
+}: LapItemProps) => {
   const EASE: [number, number, number, number] = [0.2, 0, 0, 1];
   const DURATION_S = 0.4;
 
@@ -33,7 +33,7 @@ export const LapItem: React.FC<LapItemProps> = ({
 
   return (
     <m.div
-      layout={'position'}
+      layout="position"
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{
@@ -50,7 +50,7 @@ export const LapItem: React.FC<LapItemProps> = ({
       onKeyDown={onKeyDown}
       role="group"
       aria-label={`Lap ${lap}`}
-      tabIndex={1}
+      tabIndex={0}
       ref={containerRef}
     >
       <m.div
@@ -66,12 +66,11 @@ export const LapItem: React.FC<LapItemProps> = ({
             )}` as keyof typeof styles
           ] as string
         )}
-        // width is controlled via useLapSwipe's subscription
         aria-hidden
       />
       <div className={styles['lap__content']}>
         <span className={styles.number}>{`Lap ${lap}`}</span>
-        <span className={styles.time}>{time}</span>
+        {time ? <span className={styles.time}>{time}</span> : null}
         <span className={styles.diff}>{diff}</span>
       </div>
     </m.div>

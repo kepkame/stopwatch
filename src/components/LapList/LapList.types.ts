@@ -1,6 +1,6 @@
 export interface LapData {
   lap: number;
-  time: string;
+  time?: string;
   diff: string;
   colorIndex: number;
 }

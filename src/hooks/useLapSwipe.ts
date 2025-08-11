@@ -1,4 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import type {
+  RefObject,
+  PointerEvent as ReactPointerEvent,
+  PointerEventHandler,
+  KeyboardEventHandler,
+} from 'react';
 import { animate, useMotionValue, useReducedMotion } from 'motion/react';
 import {
   DOMINANCE_RATIO,
@@ -12,15 +18,15 @@ export interface UseLapSwipeParams {
 }
 
 export interface UseLapSwipeResult {
-  containerRef: React.RefObject<HTMLDivElement | null>;
-  overlayRef: React.RefObject<HTMLDivElement | null>;
+  containerRef: RefObject<HTMLDivElement | null>;
+  overlayRef: RefObject<HTMLDivElement | null>;
   overlayRtl: boolean;
   colorClassFor: (idx: number) => string | undefined;
-  onPointerDown: React.PointerEventHandler<HTMLDivElement>;
-  onPointerMove: React.PointerEventHandler<HTMLDivElement>;
-  onPointerUp: React.PointerEventHandler<HTMLDivElement>;
-  onPointerCancel: React.PointerEventHandler<HTMLDivElement>;
-  onKeyDown: React.KeyboardEventHandler<HTMLDivElement>;
+  onPointerDown: PointerEventHandler<HTMLDivElement>;
+  onPointerMove: PointerEventHandler<HTMLDivElement>;
+  onPointerUp: PointerEventHandler<HTMLDivElement>;
+  onPointerCancel: PointerEventHandler<HTMLDivElement>;
+  onKeyDown: KeyboardEventHandler<HTMLDivElement>;
 }
 
 export const useLapSwipe = (
@@ -64,12 +70,14 @@ export const useLapSwipe = (
     [styles]
   );
 
-  const resetGesture = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+  const resetGesture = useCallback((e: ReactPointerEvent<HTMLDivElement>) => {
     try {
       if (pointerIdRef.current !== null) {
         e.currentTarget.releasePointerCapture(pointerIdRef.current);
       }
-    } catch {}
+    } catch {
+      // empty
+    }
     startX.current = null;
     startY.current = null;
     swiped.current = false;
@@ -89,105 +97,8 @@ export const useLapSwipe = (
     [progressX]
   );
 
-  const onPointerDown: React.PointerEventHandler<HTMLDivElement> = useCallback(
-    (e) => {
-      pointerIdRef.current = e.pointerId;
-      startX.current = e.clientX;
-      startY.current = e.clientY;
-      swiped.current = false;
-
-      const onMove = (ev: PointerEvent) => {
-        if (pointerIdRef.current !== ev.pointerId) return;
-        if (startX.current === null || startY.current === null) return;
-        const dx = ev.clientX - startX.current;
-        const dy = ev.clientY - startY.current;
-        if (!swiped.current) {
-          if (
-            Math.abs(dx) >= SWIPE_THRESHOLD_PX &&
-            Math.abs(dx) > Math.abs(dy) * DOMINANCE_RATIO
-          ) {
-            swiped.current = true;
-            setOverlayRtl(dx < 0);
-            progressX.set(0);
-          }
-        } else {
-          const lapWidth = lapWidthRef.current || 0;
-          const width = Math.min(Math.abs(dx), lapWidth);
-          progressX.set(width);
-        }
-        ev.preventDefault();
-      };
-
-      const onUp = (ev: PointerEvent) => {
-        if (pointerIdRef.current !== ev.pointerId) return;
-        const synthetic = ev as unknown as React.PointerEvent<HTMLDivElement>;
-        onPointerUp(synthetic);
-        window.removeEventListener(
-          'pointermove',
-          onMove as any,
-          { capture: false } as any
-        );
-        window.removeEventListener(
-          'pointerup',
-          onUp as any,
-          { capture: false } as any
-        );
-        window.removeEventListener(
-          'pointercancel',
-          onUp as any,
-          { capture: false } as any
-        );
-      };
-
-      window.addEventListener(
-        'pointermove',
-        onMove as any,
-        { passive: false } as any
-      );
-      window.addEventListener(
-        'pointerup',
-        onUp as any,
-        { passive: false } as any
-      );
-      window.addEventListener(
-        'pointercancel',
-        onUp as any,
-        { passive: false } as any
-      );
-    },
-    []
-  );
-
-  const onPointerMove: React.PointerEventHandler<HTMLDivElement> = useCallback(
-    (e) => {
-      if (startX.current === null || startY.current === null || swiped.current)
-        return;
-      const dx = e.clientX - startX.current;
-      const dy = e.clientY - startY.current;
-      if (
-        Math.abs(dx) >= SWIPE_THRESHOLD_PX &&
-        Math.abs(dx) > Math.abs(dy) * DOMINANCE_RATIO
-      ) {
-        swiped.current = true;
-        setOverlayRtl(dx < 0);
-        progressX.set(0);
-        e.preventDefault();
-      }
-    },
-    []
-  );
-
-  const onPointerMoveDragging: React.PointerEventHandler<HTMLDivElement> =
-    useCallback((e) => {
-      if (!swiped.current || startX.current === null) return;
-      const dx = e.clientX - startX.current;
-      const lapWidth = lapWidthRef.current || 0;
-      const width = Math.min(Math.abs(dx), lapWidth);
-      progressX.set(width);
-      e.preventDefault();
-    }, []);
-
-  const onPointerUp: React.PointerEventHandler<HTMLDivElement> = useCallback(
+  // Define onPointerUp before onPointerDown to avoid TDZ when used in deps
+  const onPointerUp: PointerEventHandler<HTMLDivElement> = useCallback(
     (e) => {
       if (swiped.current) {
         const lapWidth = lapWidthRef.current || 0;
@@ -218,20 +129,96 @@ export const useLapSwipe = (
           }
         }
       }
-      resetGesture(e);
+      resetGesture(e as unknown as ReactPointerEvent<HTMLDivElement>);
     },
-    [animateTo, commitChange, prefersReducedMotion, resetGesture]
+    [animateTo, commitChange, prefersReducedMotion, resetGesture, progressX]
   );
 
-  const onPointerCancel: React.PointerEventHandler<HTMLDivElement> =
+  const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
+      pointerIdRef.current = e.pointerId;
+      startX.current = e.clientX;
+      startY.current = e.clientY;
+      swiped.current = false;
+
+      const onMove = (ev: PointerEvent) => {
+        if (pointerIdRef.current !== ev.pointerId) return;
+        if (startX.current === null || startY.current === null) return;
+        const dx = ev.clientX - startX.current;
+        const dy = ev.clientY - startY.current;
+        if (!swiped.current) {
+          if (
+            Math.abs(dx) >= SWIPE_THRESHOLD_PX &&
+            Math.abs(dx) > Math.abs(dy) * DOMINANCE_RATIO
+          ) {
+            swiped.current = true;
+            setOverlayRtl(dx < 0);
+            progressX.set(0);
+          }
+        } else {
+          const lapWidth = lapWidthRef.current || 0;
+          const width = Math.min(Math.abs(dx), lapWidth);
+          progressX.set(width);
+        }
+        ev.preventDefault();
+      };
+
+      const onUp = (ev: PointerEvent) => {
+        if (pointerIdRef.current !== ev.pointerId) return;
+        const synthetic = ev as unknown as ReactPointerEvent<HTMLDivElement>;
+        onPointerUp(synthetic);
+        window.removeEventListener('pointermove', onMove, { capture: false });
+        window.removeEventListener('pointerup', onUp, { capture: false });
+        window.removeEventListener('pointercancel', onUp, { capture: false });
+      };
+
+      window.addEventListener('pointermove', onMove, { passive: false });
+      window.addEventListener('pointerup', onUp, { passive: false });
+      window.addEventListener('pointercancel', onUp, { passive: false });
+    },
+    [onPointerUp, progressX]
+  );
+
+  const onPointerMove: PointerEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
+      if (startX.current === null || startY.current === null || swiped.current)
+        return;
+      const dx = e.clientX - startX.current;
+      const dy = e.clientY - startY.current;
+      if (
+        Math.abs(dx) >= SWIPE_THRESHOLD_PX &&
+        Math.abs(dx) > Math.abs(dy) * DOMINANCE_RATIO
+      ) {
+        swiped.current = true;
+        setOverlayRtl(dx < 0);
+        progressX.set(0);
+        e.preventDefault();
+      }
+    },
+    [progressX]
+  );
+
+  const onPointerMoveDragging: PointerEventHandler<HTMLDivElement> =
     useCallback(
       (e) => {
-        resetGesture(e);
+        if (!swiped.current || startX.current === null) return;
+        const dx = e.clientX - startX.current;
+        const lapWidth = lapWidthRef.current || 0;
+        const width = Math.min(Math.abs(dx), lapWidth);
+        progressX.set(width);
+        e.preventDefault();
       },
-      [resetGesture]
+      [progressX]
     );
 
-  const onKeyDown: React.KeyboardEventHandler<HTMLDivElement> = useCallback(
+  const onPointerCancel: PointerEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
+      resetGesture(e as unknown as ReactPointerEvent<HTMLDivElement>);
+    },
+    [resetGesture]
+  );
+
+  const onKeyDown: KeyboardEventHandler<HTMLDivElement> = useCallback(
     (e) => {
       if (!e.shiftKey) return;
       const lapWidth = lapWidthRef.current || 0;
@@ -261,17 +248,16 @@ export const useLapSwipe = (
         }
       }
     },
-    [animateTo, commitChange, prefersReducedMotion]
+    [animateTo, commitChange, prefersReducedMotion, progressX]
   );
 
-  const onPointerMoveRouted: React.PointerEventHandler<HTMLDivElement> =
-    useCallback(
-      (e) => {
-        if (!swiped.current) onPointerMove(e);
-        else onPointerMoveDragging(e);
-      },
-      [onPointerMove, onPointerMoveDragging]
-    );
+  const onPointerMoveRouted: PointerEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
+      if (!swiped.current) onPointerMove(e);
+      else onPointerMoveDragging(e);
+    },
+    [onPointerMove, onPointerMoveDragging]
+  );
 
   return {
     containerRef,

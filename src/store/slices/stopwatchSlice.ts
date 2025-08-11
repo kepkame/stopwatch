@@ -4,7 +4,7 @@ const MIN_LAP_GUARD_MS = 500;
 
 interface Lap {
   id: number;
-  timestampMs: number;
+  timestampMs: number | null;
   /** Index of color in palette: 0-gray,1-pench,2-green,3-blue,4-purple,5-pink */
   colorIndex: number;
 }
@@ -35,6 +35,10 @@ const stopwatchSlice = createSlice({
       if (state.status !== 'running') {
         state.status = 'running';
         state.startEpochMs = Date.now();
+        // Create the very first open lap automatically on Start
+        if (state.laps.length === 0) {
+          state.laps.push({ id: 1, timestampMs: null, colorIndex: 0 });
+        }
       }
     },
     pause(state) {
@@ -57,14 +61,28 @@ const stopwatchSlice = createSlice({
         ) {
           return;
         }
+
         const totalElapsed = state.accumulatedMs + (now - state.startEpochMs);
-        const previousLap = state.laps[state.laps.length - 1] ?? null;
-        const nextColorIndex = previousLap ? previousLap.colorIndex : 0; // 0-gray for the very first lap
-        state.laps.push({
-          id: state.laps.length + 1,
-          timestampMs: totalElapsed,
-          colorIndex: nextColorIndex,
-        });
+        const lastIndex = state.laps.length - 1;
+        const lastLap = state.laps[lastIndex];
+
+        if (lastLap) {
+          // Fix current open lap (if open), then create a new open lap
+          if (lastLap.timestampMs === null) {
+            lastLap.timestampMs = totalElapsed;
+          }
+          const nextId = lastLap.id + 1;
+          const nextColorIndex = lastLap.colorIndex;
+          state.laps.push({
+            id: nextId,
+            timestampMs: null,
+            colorIndex: nextColorIndex,
+          });
+        } else {
+          // Safety: if no laps exist (should not happen after Start), create the first open
+          state.laps.push({ id: 1, timestampMs: null, colorIndex: 0 });
+        }
+
         state.lastLapEpochMs = now;
         // setting the time for the next alert
         // (only if sounds are enabled and there is an interval in settings)

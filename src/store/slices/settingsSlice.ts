@@ -11,7 +11,7 @@ interface SettingsState {
 const initialState: SettingsState = {
   soundEnabled: false,
   alertIntervalSec: 60,
-  changeTimeByTap: false,
+  changeTimeByTap: true,
   keepScreenOn: false,
   theme: 'blue',
 };

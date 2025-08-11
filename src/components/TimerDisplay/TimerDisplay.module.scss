@@ -7,10 +7,55 @@
   line-height: 1.1;
   text-align: center;
   background-color: variables.$color-background;
+  margin-top: 56px;
+  margin-bottom: 56px;
 
   &--long {
     font-size: 48px;
   }
+}
+
+.display {
+  position: relative;
+  min-height: 1.2em;
+  padding: 4px 0;
+  user-select: none;
+  -webkit-user-select: none;
+  // keyboard focus handled globally in base; keep smooth
+}
+
+.displayClickable {
+  // clickable affordance
+  cursor: pointer;
+}
+
+.value {
+  transition: transform variables.$duration ease-in-out,
+    opacity variables.$duration ease-in-out;
+  will-change: transform, opacity;
+}
+
+.valueCompact {
+  transform: translateY(-90px) scale(0.285);
+}
+
+.alt {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  transform: translateY(8px) scale(0.98);
+  transition: opacity variables.$duration ease-in-out,
+    transform variables.$duration ease-in-out;
+  pointer-events: none;
+}
+
+.altShown {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 @media (min-width: 370px) {
