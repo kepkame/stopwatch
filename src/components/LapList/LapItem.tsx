@@ -58,7 +58,7 @@ export const LapItem: React.FC<LapItemProps> = ({
         className={clsx(
           styles['lap__overlay'],
           overlayRtl && styles.rtl,
-          overlayRtl ? styles.px20Rtl : styles.px20,
+          overlayRtl ? styles.roundedRtl : styles.rounded,
           styles[
             `color-${cyclicIndex(
               colorIndex,

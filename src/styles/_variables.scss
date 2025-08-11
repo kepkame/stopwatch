@@ -19,24 +19,28 @@ $font-family-base: 'Montserrat', system-ui, Avenir, Helvetica, Arial, sans-serif
 $font-family-numbers: 'Roboto Mono', system-ui, Avenir, Helvetica, Arial,
   sans-serif;
 
-$color-gray: #fc9a82;
-$color-pench: #fc9a82;
+$color-gray: #757575;
+$color-pench: #ff9859;
 $color-green: #01b6ae;
-$color-blue: #69a9fc;
-$color-purple: #7b94f6;
-$color-pink: #f27b99;
+$color-blue: #5ca3ff;
+$color-purple: #7566ff;
+$color-pink: #ef7a98;
 
 $deg-gradient: 135deg;
 $color-gray-gradient: linear-gradient($deg-gradient, #a1a1a1 0%, #797979 100%);
-$color-pench-gradient: linear-gradient($deg-gradient, #f7c077 0%, #fc9a82 100%);
-$color-green-gradient: linear-gradient($deg-gradient, #0bc785 0%, #01b6ae 100%);
-$color-blue-gradient: linear-gradient($deg-gradient, #3bc9fb 0%, #69a9fc 100%);
+$color-pench-gradient: linear-gradient($deg-gradient, #ffbe7d 0%, #f98c55 100%);
+$color-green-gradient: linear-gradient(
+  $deg-gradient,
+  #47dca5 0%,
+  #0eb795 100% 100%
+);
+$color-blue-gradient: linear-gradient($deg-gradient, #3bc9fb 0%, #4d9bff 100%);
 $color-purple-gradient: linear-gradient(
   $deg-gradient,
-  #b986fe 0%,
-  #7b94f6 100%
+  #c498ff 0%,
+  #6f78fb 100%
 );
-$color-pink-gradient: linear-gradient($deg-gradient, #fa80d2 0%, #f27b99 100%);
+$color-pink-gradient: linear-gradient($deg-gradient, #ff99c0 0%, #f06686 100%);
 
 $border-radius: 0.5rem;
 

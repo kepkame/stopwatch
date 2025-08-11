@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectMeasuring } from '@store/selectors/stopwatchSelectors';
 import { setLapColorIndex } from '@store/slices/stopwatchSlice';
 import { PALETTE_SIZE, cyclicIndex } from '@utils/lapSwipeConfig';
+import styles from './StopwatchPage.module.scss';
 
 const StopwatchPage = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const StopwatchPage = () => {
   };
 
   return (
-    <div>
+    <div className={styles.stopwatchPage}>
       <TimerDisplay />
       <Controls />
       <LapList measuring={measuring} onChangeColor={handleChangeColor} />
