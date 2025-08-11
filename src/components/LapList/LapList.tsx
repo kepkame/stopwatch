@@ -12,26 +12,28 @@ export const LapList: React.FC<LapListProps> = ({
   const DURATION_S = 0.3;
 
   return (
-    <LazyMotion features={domMax} strict>
-      <m.div
-        className={styles.results}
-        layout={!prefersReducedMotion}
-        transition={{ layout: { duration: DURATION_S, ease: EASE } }}
-      >
-        {measuring
-          .slice()
-          .reverse()
-          .map((item) => (
-            <LapItem
-              key={item.lap}
-              lap={item.lap}
-              time={item.time}
-              diff={item.diff}
-              colorIndex={item.colorIndex}
-              onChangeColor={onChangeColor}
-            />
-          ))}
-      </m.div>
-    </LazyMotion>
+    <div className={styles.list}>
+      <LazyMotion features={domMax} strict>
+        <m.div
+          className={styles.results}
+          layout={!prefersReducedMotion}
+          transition={{ layout: { duration: DURATION_S, ease: EASE } }}
+        >
+          {measuring
+            .slice()
+            .reverse()
+            .map((item) => (
+              <LapItem
+                key={item.lap}
+                lap={item.lap}
+                time={item.time}
+                diff={item.diff}
+                colorIndex={item.colorIndex}
+                onChangeColor={onChangeColor}
+              />
+            ))}
+        </m.div>
+      </LazyMotion>
+    </div>
   );
 };

@@ -1,15 +1,13 @@
 @use '@styles/variables';
 
 .controls {
-  // position: fixed;
-  // bottom: 0;
-  // left: 0;
-  // right: 0;
+  flex: 0 0 auto;
   display: flex;
   justify-content: center;
   gap: 24px;
   background-color: variables.$color-background;
   padding: 20px 0 24px;
+  margin-top: auto;
   z-index: 2;
   order: 1;
 }
@@ -20,6 +18,7 @@
 
 @media (min-width: 768px) {
   .controls {
+    margin-top: 0;
     order: 0;
   }
 }

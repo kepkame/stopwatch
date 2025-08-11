@@ -19,8 +19,7 @@
   font-family: variables.$font-family-base;
   font-weight: 500;
   color: variables.$color-text-primary;
-
-  /* color-scheme: light dark; */
+  height: 100dvh;
 }
 
 html {
@@ -84,6 +83,10 @@ a {
     text-decoration: underline;
     color: variables.$color-primary-dark;
   }
+}
+
+main {
+  height: calc(100dvh - 48px); // height Header
 }
 
 button {

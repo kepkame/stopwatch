@@ -19,9 +19,13 @@ const StopwatchPage = () => {
 
   return (
     <div className={styles.stopwatchPage}>
-      <TimerDisplay />
-      <Controls />
-      <LapList measuring={measuring} onChangeColor={handleChangeColor} />
+      <div className="container">
+        <div className={styles.wrapper}>
+          <TimerDisplay />
+          <Controls />
+          <LapList measuring={measuring} onChangeColor={handleChangeColor} />
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
-import styles from './Header.module.scss';
 import { Settings } from 'lucide-react';
+import styles from './Header.module.scss';
 
 export const Header = () => {
   return (

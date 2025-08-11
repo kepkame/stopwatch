@@ -1,6 +1,7 @@
 @use '@styles/variables';
 
 .timer {
+  flex: 0 0 auto;
   font-size: 52px;
   font-family: variables.$font-family-numbers;
   line-height: 1.1;
