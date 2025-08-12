@@ -1,0 +1,68 @@
+@use '@styles/variables';
+
+.root {
+  display: inline-flex;
+  align-items: flex-start;
+
+  &.compact {
+    align-items: center; // center within line box to avoid top clamp in lists
+    vertical-align: middle;
+    color: inherit;
+  }
+}
+
+.ticker {
+  display: inline-block;
+  position: relative;
+}
+
+.viewport {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  height: 1em; // fallback to avoid flash before measurement
+}
+
+.rail {
+  will-change: transform;
+  transition: transform variables.$duration ease-in-out;
+}
+
+.digit {
+  display: block;
+  height: 1em; // fallback line height per digit
+  line-height: 1em;
+}
+
+.sep {
+  display: inline-block;
+
+  .compact & {
+    color: inherit;
+  }
+}
+
+.measure {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  inset: 0 auto auto 0;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// @media (prefers-reduced-motion: reduce) {
+//   .rail {
+//     transition: none;
+//   }
+// }

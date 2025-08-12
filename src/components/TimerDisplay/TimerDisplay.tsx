@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { useCallback } from 'react';
 import { useTimerDisplay } from '@hooks/useTimerDisplay';
 import { useTimerAltAnimation } from '@hooks/useTimerAltAnimation';
+import { AnimatedDigits } from './AnimatedDigits';
 import styles from './TimerDisplay.module.scss';
 
 export const TimerDisplay: React.FC = () => {
@@ -63,7 +64,7 @@ export const TimerDisplay: React.FC = () => {
               (isElapsedLong && styles['timer--3digit'])
           )}
         >
-          {elapsedStr}
+          <AnimatedDigits value={elapsedStr} remeasureKey={compact} />
         </div>
 
         {mode === 'diff' && (
@@ -76,7 +77,11 @@ export const TimerDisplay: React.FC = () => {
                 (isDiffLong && styles['timer--3digit'])
             )}
           >
-            {diffStr}
+            <AnimatedDigits
+              value={diffStr}
+              announce={false}
+              remeasureKey={compact}
+            />
           </div>
         )}
 
@@ -91,7 +96,11 @@ export const TimerDisplay: React.FC = () => {
                 (isCountdownLong && styles['timer--3digit'])
             )}
           >
-            {countdownStr}
+            <AnimatedDigits
+              value={countdownStr}
+              announce={false}
+              remeasureKey={compact}
+            />
           </div>
         )}
       </div>
