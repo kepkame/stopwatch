@@ -10,8 +10,11 @@ export const TimerDisplay: React.FC = () => {
     diffStr,
     countdownStr,
     isElapsedLong,
+    isElapsedVeryLong,
     isDiffLong,
+    isDiffVeryLong,
     isCountdownLong,
+    isCountdownVeryLong,
     mode,
     compact,
     changeTimeByTap,
@@ -56,7 +59,8 @@ export const TimerDisplay: React.FC = () => {
           className={clsx(
             styles.value,
             compact && styles.valueCompact,
-            isElapsedLong && styles['timer--long']
+            (isElapsedVeryLong && styles['timer--4digit']) ||
+              (isElapsedLong && styles['timer--3digit'])
           )}
         >
           {elapsedStr}
@@ -68,7 +72,8 @@ export const TimerDisplay: React.FC = () => {
               styles.alt,
               isBlinkTransition && shouldBlink && styles.altPulse,
               isAltShown && styles.altShown,
-              isDiffLong && styles['timer--long']
+              (isDiffVeryLong && styles['timer--4digit']) ||
+                (isDiffLong && styles['timer--3digit'])
             )}
           >
             {diffStr}
@@ -82,7 +87,8 @@ export const TimerDisplay: React.FC = () => {
               isSoftAltAnimation && styles.altSoft,
               isBlinkTransition && shouldBlink && styles.altPulse,
               (isSoftAltAnimation || isAltShown) && styles.altShown,
-              isCountdownLong && styles['timer--long']
+              (isCountdownVeryLong && styles['timer--4digit']) ||
+                (isCountdownLong && styles['timer--3digit'])
             )}
           >
             {countdownStr}

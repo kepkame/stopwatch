@@ -29,6 +29,9 @@ type TimerComputed = {
   isElapsedLong: boolean;
   isDiffLong: boolean;
   isCountdownLong: boolean;
+  isElapsedVeryLong: boolean;
+  isDiffVeryLong: boolean;
+  isCountdownVeryLong: boolean;
 };
 
 function computeTimerState(
@@ -57,9 +60,17 @@ function computeTimerState(
     const diffStr = `+${formatTime(lastDiffMs)}`;
     const countdownStr = `-${formatTime(countdownMs)}`;
 
-    const isElapsedLong = minutesTotal(elapsedMs) >= 100;
-    const isDiffLong = minutesTotal(lastDiffMs) >= 100;
-    const isCountdownLong = minutesTotal(countdownMs) >= 100;
+    const elapsedMinutes = minutesTotal(elapsedMs);
+    const diffMinutes = minutesTotal(lastDiffMs);
+    const countdownMinutes = minutesTotal(countdownMs);
+
+    const isElapsedLong = elapsedMinutes >= 100;
+    const isDiffLong = diffMinutes >= 100;
+    const isCountdownLong = countdownMinutes >= 100;
+
+    const isElapsedVeryLong = elapsedMinutes >= 1000;
+    const isDiffVeryLong = diffMinutes >= 1000;
+    const isCountdownVeryLong = countdownMinutes >= 1000;
 
     return {
       elapsedMs,
@@ -71,6 +82,9 @@ function computeTimerState(
       isElapsedLong,
       isDiffLong,
       isCountdownLong,
+      isElapsedVeryLong,
+      isDiffVeryLong,
+      isCountdownVeryLong,
     };
   } catch {
     // Fail-safe defaults to keep UI functional
@@ -85,6 +99,9 @@ function computeTimerState(
       isElapsedLong: false,
       isDiffLong: false,
       isCountdownLong: false,
+      isElapsedVeryLong: false,
+      isDiffVeryLong: false,
+      isCountdownVeryLong: false,
     };
   }
 }
