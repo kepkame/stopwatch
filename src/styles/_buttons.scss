@@ -2,35 +2,11 @@
 @use '@styles/variables';
 @use '@styles/functions';
 
-/* Register CSS Custom Properties as typed colors to enable smooth transitions */
-@property --grad-c1 {
-  syntax: '<color>';
-  inherits: false;
-  initial-value: #{color.adjust(variables.$color-primary, $lightness: 10%)};
-}
-
-@property --grad-c2 {
-  syntax: '<color>';
-  inherits: false;
-  initial-value: #{color.adjust(variables.$color-primary, $lightness: 7%)};
-}
-
-@property --grad-c3 {
-  syntax: '<color>';
-  inherits: false;
-  initial-value: #{color.adjust(variables.$color-primary, $lightness: -7%)};
-}
-
-@property --grad-c4 {
-  syntax: '<color>';
-  inherits: false;
-  initial-value: #{color.adjust(variables.$color-primary, $lightness: -9%)};
-}
-
+/* === Base button === */
 .btn {
   font-size: 0.875rem;
-  color: variables.$color-text-secondary;
-  background-color: variables.$color-primary-light;
+  color: var(--color-text-secondary);
+  background-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
   border: none;
   border-radius: variables.$border-radius;
   padding: 12px 20px 11px;
@@ -38,25 +14,33 @@
   transition: background-color variables.$duration ease-in-out;
 
   &:hover {
-    background-color: variables.$color-primary-dark;
+    background-color: hsl(
+      var(--accent-h) var(--accent-hover-s) var(--accent-hover-l)
+    );
   }
 
+  /* === Outline modifier === */
   &--outline {
-    color: variables.$color-primary-light;
+    color: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
     background-color: transparent;
-    border: 2px solid variables.$color-primary-light;
+    border: 2px solid hsl(var(--accent-h) var(--accent-s) var(--accent-l));
     padding: 10px 18px 9px;
     transition: color variables.$duration ease-in-out,
       background-color variables.$duration ease-in-out,
       border-color variables.$duration ease-in-out;
 
     &:hover {
-      color: variables.$color-text-secondary;
-      background-color: variables.$color-primary-dark;
-      border-color: variables.$color-primary-dark;
+      color: var(--color-text-secondary);
+      background-color: hsl(
+        var(--accent-h) var(--accent-hover-s) var(--accent-hover-l)
+      );
+      border-color: hsl(
+        var(--accent-h) var(--accent-hover-s) var(--accent-hover-l)
+      );
     }
   }
 
+  /* === Icon button === */
   &--icon {
     display: flex;
     flex-direction: row;
@@ -66,57 +50,84 @@
     svg {
       width: 20px;
       height: 20px;
-      stroke: variables.$color-text-secondary;
+      stroke: var(--color-text-secondary);
       transition: stroke variables.$duration ease-in-out;
     }
 
     &.btn--outline svg {
-      stroke: variables.$color-primary-light;
+      stroke: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
     }
 
     &.btn--outline:hover svg {
-      stroke: variables.$color-text-secondary;
+      stroke: var(--color-text-secondary);
     }
   }
 
+  /* === Gradient button === */
   &--gradient {
-    --grad-c1: #{color.adjust(variables.$color-primary, $lightness: 10%)};
-    --grad-c2: #{color.adjust(variables.$color-primary, $lightness: 7%)};
-    --grad-c3: #{color.adjust(variables.$color-primary, $lightness: -7%)};
-    --grad-c4: #{color.adjust(variables.$color-primary, $lightness: -9%)};
+    /* Gradient stop colors (computed from theme tokens) */
+    --grad-c1: hsl(
+      var(--accent-h) clamp(0%, calc(var(--accent-s) + var(--g-s1)), 100%)
+        clamp(0%, calc(var(--accent-l) + var(--g-l1)), 100%)
+    );
+    --grad-c2: hsl(
+      var(--accent-h) clamp(0%, calc(var(--accent-s) + var(--g-s2)), 100%)
+        clamp(0%, calc(var(--accent-l) + var(--g-l2)), 100%)
+    );
+    --grad-c3: hsl(
+      var(--accent-h) clamp(0%, calc(var(--accent-s) + var(--g-s3)), 100%)
+        clamp(0%, calc(var(--accent-l) + var(--g-l3)), 100%)
+    );
+    --grad-c4: hsl(
+      var(--accent-h) clamp(0%, calc(var(--accent-s) + var(--g-s4)), 100%)
+        clamp(0%, calc(var(--accent-l) + var(--g-l4)), 100%)
+    );
 
     font-size: 0.875rem;
     line-height: 1.25rem;
-    color: variables.$color-text-secondary;
-    background-color: variables.$color-primary;
-    // background-image: variables.$color-primary-gradient;
+    color: var(--color-text-secondary);
+    background-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
 
     background: linear-gradient(
       135deg,
-      var(--grad-c1) 0%,
-      var(--grad-c2) 10%,
-      var(--grad-c3) 90%,
-      var(--grad-c4) 100%
+      var(--grad-c1) var(--g-stop1),
+      var(--grad-c2) var(--g-stop2),
+      var(--grad-c3) var(--g-stop3),
+      var(--grad-c4) var(--g-stop4)
     );
     border: none;
-    border-radius: 0.5em;
     padding: 12px 16px 11px;
-    transition: --grad-c1 variables.$duration ease-in-out,
-      --grad-c2 variables.$duration ease-in-out,
-      --grad-c3 variables.$duration ease-in-out,
-      --grad-c4 variables.$duration ease-in-out;
+    transition: --grad-c1 variables.$duration-fast ease-in-out,
+      --grad-c2 variables.$duration-fast ease-in-out,
+      --grad-c3 variables.$duration-fast ease-in-out,
+      --grad-c4 variables.$duration-fast ease-in-out;
     cursor: pointer;
 
-    // &:hover {
-    //   background-color: variables.$color-primary-dark;
-    //   background-image: variables.$color-primary-gradient-dark;
-    // }
+    /* Hover updates only gradient stops – background shorthand untouched */
     &:hover {
-      --grad-c1: #{color.adjust(variables.$color-primary, $lightness: 8%)};
-      --grad-c2: #{color.adjust(variables.$color-primary, $lightness: 12%)};
-      --grad-c3: #{color.adjust(variables.$color-primary, $lightness: -15%)};
-      --grad-c4: #{color.adjust(variables.$color-primary, $lightness: -20%)};
-      // background-color: variables.$color-primary-dark;
+      --grad-c1: hsl(
+        var(--accent-h)
+          clamp(0%, calc(var(--accent-hover-s) + var(--g-s1-h)), 100%)
+          clamp(0%, calc(var(--accent-hover-l) + var(--g-l1-h)), 100%)
+      );
+      --grad-c2: hsl(
+        var(--accent-h)
+          clamp(0%, calc(var(--accent-hover-s) + var(--g-s2-h)), 100%)
+          clamp(0%, calc(var(--accent-hover-l) + var(--g-l2-h)), 100%)
+      );
+      --grad-c3: hsl(
+        var(--accent-h)
+          clamp(0%, calc(var(--accent-hover-s) + var(--g-s3-h)), 100%)
+          clamp(0%, calc(var(--accent-hover-l) + var(--g-l3-h)), 100%)
+      );
+      --grad-c4: hsl(
+        var(--accent-h)
+          clamp(0%, calc(var(--accent-hover-s) + var(--g-s4-h)), 100%)
+          clamp(0%, calc(var(--accent-hover-l) + var(--g-l4-h)), 100%)
+      );
+      background-color: hsl(
+        var(--accent-h) var(--accent-hover-s) var(--accent-hover-l)
+      );
     }
   }
 }

@@ -1,54 +1,68 @@
 @use 'sass:color';
 @use '@styles/functions';
 
-$color-primary: hsl(23, 100%, 50%);
-$color-primary-light: hsl(23, 84%, 56%);
-$color-primary-dark: hsl(23, 100%, 44%);
-$color-primary-gradient: functions.primary-gradient(135deg, $color-primary);
-$color-primary-gradient-dark: functions.primary-gradient(
-  135deg,
-  $color-primary-dark
-);
+/* ============================================================
+   COLOR TOKENS (CSS variables)
+   ============================================================ */
+:root {
+  /* === Primary accent colors === */
+  --color-primary: hsl(23 100% 50%);
+  --color-primary-light: hsl(23 84% 56%);
+  --color-primary-dark: hsl(23 100% 44%);
 
-$color-background: #efefef;
+  /* === Primary gradients === */
+  --color-primary-gradient: #{functions.primary-gradient(
+      135deg,
+      hsl(23, 100%, 50%)
+    )};
+  --color-primary-gradient-dark: #{functions.primary-gradient(
+      135deg,
+      hsl(23, 100%, 44%)
+    )};
 
-$color-text-primary: #353535;
-$color-text-secondary: #ffffff;
+  /* === Base UI colors === */
+  --color-background: #efefef;
+  --color-text-primary: #353535;
+  --color-text-secondary: #ffffff;
 
+  /* === Additional solid colors === */
+  --color-gray: #757575;
+  --color-pench: #ff9859;
+  --color-green: #01b6ae;
+  --color-blue: #5ca3ff;
+  --color-purple: #7566ff;
+  --color-pink: #ef7a98;
+
+  /* === Additional gradients === */
+  --color-gray-gradient: linear-gradient(135deg, #a1a1a1 0%, #797979 100%);
+  --color-pench-gradient: linear-gradient(135deg, #ffbe7d 0%, #f98c55 100%);
+  --color-green-gradient: linear-gradient(135deg, #47dca5 0%, #0eb795 100%);
+  --color-blue-gradient: linear-gradient(135deg, #3bc9fb 0%, #4d9bff 100%);
+  --color-purple-gradient: linear-gradient(135deg, #c498ff 0%, #6f78fb 100%);
+  --color-pink-gradient: linear-gradient(135deg, #ff99c0 0%, #f06686 100%);
+}
+
+/* ============================================================
+   NON-COLOR SCSS VARIABLES
+   ============================================================ */
+
+/* === Fonts === */
 $font-family-base: 'Montserrat', system-ui, Avenir, Helvetica, Arial, sans-serif;
 $font-family-numbers: 'Roboto Mono', system-ui, Avenir, Helvetica, Arial,
   sans-serif;
 
-$color-gray: #757575;
-$color-pench: #ff9859;
-$color-green: #01b6ae;
-$color-blue: #5ca3ff;
-$color-purple: #7566ff;
-$color-pink: #ef7a98;
-
-$deg-gradient: 135deg;
-$color-gray-gradient: linear-gradient($deg-gradient, #a1a1a1 0%, #797979 100%);
-$color-pench-gradient: linear-gradient($deg-gradient, #ffbe7d 0%, #f98c55 100%);
-$color-green-gradient: linear-gradient(
-  $deg-gradient,
-  #47dca5 0%,
-  #0eb795 100% 100%
-);
-$color-blue-gradient: linear-gradient($deg-gradient, #3bc9fb 0%, #4d9bff 100%);
-$color-purple-gradient: linear-gradient(
-  $deg-gradient,
-  #c498ff 0%,
-  #6f78fb 100%
-);
-$color-pink-gradient: linear-gradient($deg-gradient, #ff99c0 0%, #f06686 100%);
-
+/* === Border radius === */
 $border-radius: 0.5rem;
 
+/* === Breakpoints === */
 $grid-breakpoints-sm: 576px;
 $grid-breakpoints-md: 767px;
 $grid-breakpoints-lg: 992px;
+
+/* === Layout sizes === */
 $container-max-width: 1200px;
 $visualization-width: 482px;
 
+/* === Animation durations === */
 $duration: 0.25s;
 $duration-fast: 0.15s;

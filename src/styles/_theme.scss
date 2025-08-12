@@ -1,0 +1,86 @@
+:root {
+  /* ============================================================
+     THEME COLOR TOKENS
+     ============================================================ */
+
+  /* === Base theme colors === */
+  --color-text-primary: #353535;
+  --color-text-secondary: #ffffff;
+  --color-bg: #efefef;
+
+  /* === Accent color (same logic as solid buttons) === */
+  --accent-h: 23;
+  --accent-s: 84%;
+  --accent-l: 56%;
+
+  /* === Accent hover color === */
+  /* Same as: hsl(23, 100%, 44%) */
+  --accent-hover-s: 100%;
+  --accent-hover-l: 44%;
+
+  /* === Gradient stop positions === */
+  /* Can be adjusted per theme */
+  --g-stop1: 0%;
+  --g-stop2: 28%;
+  --g-stop3: 72%;
+  --g-stop4: 100%;
+
+  /* === Delta values for NORMAL state === */
+  /* Universal across all themes */
+  --g-s1: -6%;
+  --g-l1: +10%;
+  --g-s2: 0%;
+  --g-l2: 0%;
+  --g-s3: +6%;
+  --g-l3: -6%;
+  --g-s4: +8%;
+  --g-l4: -14%;
+
+  /* === Delta values for HOVER state === */
+  /* More contrast, but still within theme palette */
+  --g-s1-h: -4%;
+  --g-l1-h: +18%;
+  --g-s2-h: +6%;
+  --g-l2-h: +6%;
+  --g-s3-h: +10%;
+  --g-l3-h: -10%;
+  --g-s4-h: +10%;
+  --g-l4-h: -20%;
+}
+
+@supports (color: oklch(0 0 0)) {
+  :root {
+    /* ============================================================
+       THEME COLOR TOKENS (OKLCH mode)
+       ============================================================ */
+
+    /* === Accent color (OKLCH) === */
+    --accentL: 0.72;
+    --accentC: 0.15;
+    --accentH: 50;
+
+    /* === Accent hover delta === */
+    --hover-dL: -0.12;
+    --hover-dC: +0.03;
+
+    /* === Delta values for NORMAL state === */
+    --gL1: +0.1;
+    --gC1: -0.02;
+    --gL2: 0;
+    --gC2: 0;
+    --gL3: -0.08;
+    --gC3: +0.02;
+    --gL4: -0.18;
+    --gC4: +0.02;
+
+    /* === Delta values for HOVER state === */
+    --gL1h: +0.16;
+    --gC1h: -0.01;
+    --gL2h: +0.06;
+    --gC2h: +0.02;
+    --gL3h: -0.12;
+    --gC3h: +0.04;
+    --gL4h: -0.22;
+    --gC4h: +0.04;
+  }
+}

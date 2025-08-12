@@ -1,12 +1,14 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { Play } from 'lucide-react';
+import type { RootState } from '@store/store';
+import { setLapColorIndex, start } from '@store/slices/stopwatchSlice';
 import { TimerDisplay } from '@components/TimerDisplay/TimerDisplay';
 import { Controls } from '@components/Controls/Controls';
 import { LapList } from '@components/LapList/LapList';
-import { useDispatch, useSelector } from 'react-redux';
-import type { RootState } from '@store/store';
-import { setLapColorIndex } from '@store/slices/stopwatchSlice';
-import { PALETTE_SIZE, cyclicIndex } from '@utils/lapSwipeConfig';
+import { HeroActionButton } from '@/components/ui/HeroActionButton/HeroActionButton';
 import { useElapsedTime } from '@hooks/useElapsedTime';
 import { formatTime } from '@utils/time/formatTime';
+import { PALETTE_SIZE, cyclicIndex } from '@utils/lapSwipeConfig';
 import styles from './StopwatchPage.module.scss';
 
 const StopwatchPage = () => {
@@ -42,12 +44,24 @@ const StopwatchPage = () => {
     dispatch(setLapColorIndex({ id: lap, colorIndex: next }));
   };
 
+  const handleStart = () => {
+    dispatch(start());
+  };
+
   return (
     <div className={styles.stopwatchPage}>
       <div className="container">
         <div className={styles.wrapper}>
           <TimerDisplay />
-          <Controls />
+          {status === 'idle' ? (
+            <HeroActionButton
+              icon={Play}
+              label="Start stopwatch"
+              onClick={handleStart}
+            />
+          ) : (
+            <Controls />
+          )}
           <LapList measuring={measuring} onChangeColor={handleChangeColor} />
         </div>
       </div>

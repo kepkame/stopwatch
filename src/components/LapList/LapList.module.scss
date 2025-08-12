@@ -26,9 +26,9 @@
   position: relative;
   will-change: transform;
   overflow: hidden;
-  color: variables.$color-text-secondary;
-  background-color: variables.$color-gray;
-  background-image: variables.$color-gray-gradient;
+  color: var(--color-text-secondary);
+  background-color: var(--color-gray);
+  background-image: var(--color-gray-gradient);
   border-radius: variables.$border-radius;
   padding: 8px 16px;
   // Swipe handling: allow vertical scrolling,
@@ -68,28 +68,28 @@
 
 // Color palette (cyclic)
 .color-0 {
-  background-color: variables.$color-gray;
-  background-image: variables.$color-gray-gradient;
+  background-color: var(--color-gray);
+  background-image: var(--color-gray-gradient);
 }
 .color-1 {
-  background-color: variables.$color-pench;
-  background-image: variables.$color-pench-gradient;
+  background-color: var(--color-pench);
+  background-image: var(--color-pench-gradient);
 }
 .color-2 {
-  background-color: variables.$color-green;
-  background-image: variables.$color-green-gradient;
+  background-color: var(--color-green);
+  background-image: var(--color-green-gradient);
 }
 .color-3 {
-  background-color: variables.$color-blue;
-  background-image: variables.$color-blue-gradient;
+  background-color: var(--color-blue);
+  background-image: var(--color-blue-gradient);
 }
 .color-4 {
-  background-color: variables.$color-purple;
-  background-image: variables.$color-purple-gradient;
+  background-color: var(--color-purple);
+  background-image: var(--color-purple-gradient);
 }
 .color-5 {
-  background-color: variables.$color-pink;
-  background-image: variables.$color-pink-gradient;
+  background-color: var(--color-pink);
+  background-image: var(--color-pink-gradient);
 }
 
 .number,

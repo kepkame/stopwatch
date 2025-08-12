@@ -1,6 +1,9 @@
 @use 'sass:color';
 @use '@styles/libs/normalize';
+@use '@styles/properties';
 @use '@styles/variables';
+@use '@styles/functions';
 @use '@styles/fonts';
+@use '@styles/theme';
 @use '@styles/base';
 @use '@styles/buttons';

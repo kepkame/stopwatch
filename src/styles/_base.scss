@@ -1,30 +1,40 @@
 @use 'sass:color';
 @use '@styles/variables';
-@use '@styles/functions';
 
+/* ============================================================
+   GLOBAL RESET & BASE STYLES
+   ============================================================ */
+
+/* === Box sizing reset === */
 *,
 *:before,
 *:after {
   box-sizing: inherit;
 }
 
+/* === Focus outline === */
 *:focus {
-  outline: 2px solid variables.$color-primary-dark;
+  outline: 2px solid var(--color-primary-dark);
   outline-offset: 2px;
 }
 
+/* ============================================================
+   ROOT ELEMENT STYLES
+   ============================================================ */
 :root {
   font-size: 18px;
   line-height: 1.5;
   font-family: variables.$font-family-base;
   font-weight: 500;
-  color: variables.$color-text-primary;
+  color: var(--color-text-primary);
   height: 100dvh;
 }
 
+/* ============================================================
+   HTML & BODY
+   ============================================================ */
 html {
   height: 100%;
-  // min-width: 360px;
   min-width: max(360px, 100vw);
 
   font-size: 100%;
@@ -34,15 +44,17 @@ body {
   display: flex;
   flex-direction: column;
 
-  // min-width: 360px;
   min-width: max(360px, 100vw);
   min-height: 100vh;
 
-  background-color: variables.$color-background;
+  background-color: var(--color-background);
   box-sizing: border-box;
   margin: 0;
 }
 
+/* ============================================================
+   HEADINGS
+   ============================================================ */
 h1,
 h2,
 h3,
@@ -71,22 +83,28 @@ h4 {
   font-size: 1.2rem;
 }
 
+/* ============================================================
+   LINKS
+   ============================================================ */
 a {
   font-size: inherit;
   font-family: inherit;
   font-weight: inherit;
   line-height: inherit;
   text-decoration: none;
-  color: variables.$color-primary;
+  color: var(--color-primary);
 
   &:hover {
     text-decoration: underline;
-    color: variables.$color-primary-dark;
+    color: var(--color-primary-dark);
   }
 }
 
+/* ============================================================
+   MAIN LAYOUT
+   ============================================================ */
 main {
-  height: calc(100dvh - 48px); // height Header
+  height: calc(100dvh - 48px); /* header height */
 }
 
 button {
@@ -110,17 +128,22 @@ img {
   padding: 0 20px;
 }
 
-// Скрытие стандартного фокуса для мыши
+/* ============================================================
+   ACCESSIBILITY
+   ============================================================ */
+
+/* Hide default focus outline for mouse users */
 .js-focus-visible :focus:not(.focus-visible) {
   outline: none;
 }
 
-// Сильный индикатор фокуса для клавиатуры
+/* Strong focus indicator for keyboard users */
 .js-focus-visible .focus-visible {
-  outline: 2px solid variables.$color-primary-dark;
+  outline: 2px solid var(--color-primary-dark);
   outline-offset: 2px;
 }
 
+/* Visually hidden but accessible for screen readers */
 .visually-hidden:not(:focus):not(:active) {
   position: absolute;
   width: 1px;

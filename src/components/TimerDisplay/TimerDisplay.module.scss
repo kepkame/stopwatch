@@ -6,7 +6,6 @@
   font-family: variables.$font-family-numbers;
   line-height: 1.1;
   text-align: center;
-  // background-color: variables.$color-background;
   margin-top: 56px;
   margin-bottom: 56px;
 
@@ -56,7 +55,7 @@
   align-items: center;
   justify-content: center;
 
-  color: variables.$color-text-secondary;
+  color: var(--color-text-secondary);
   opacity: 0;
   transform: translate(111px, 121px) scale(0.32);
   transition: color variables.$duration ease-in-out,
@@ -76,7 +75,7 @@
 }
 
 .altShown {
-  color: variables.$color-text-primary;
+  color: var(--color-text-primary);
   opacity: 1;
   transform: translateY(0) scale(1);
 }

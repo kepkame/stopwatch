@@ -1,0 +1,16 @@
+.heroButton {
+  display: block;
+  width: 112px;
+  height: 112px;
+  padding: 34px;
+  margin: 0 auto;
+
+  svg {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+.round {
+  border-radius: 50%;
+}

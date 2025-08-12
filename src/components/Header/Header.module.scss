@@ -44,11 +44,11 @@
   svg {
     width: 24px;
     height: 24px;
-    stroke: variables.$color-text-primary;
+    stroke: var(--color-text-primary);
     transition: stroke variables.$duration-fast ease-in-out;
   }
 
   &:hover svg {
-    stroke: variables.$color-primary;
+    stroke: var(--color-primary);
   }
 }
