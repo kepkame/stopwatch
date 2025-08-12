@@ -1,11 +1,10 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-const MIN_LAP_GUARD_MS = 500;
+const MIN_LAP_GUARD_MS = 400;
 
 interface Lap {
   id: number;
   timestampMs: number | null;
-  /** Index of color in palette: 0-gray,1-pench,2-green,3-blue,4-purple,5-pink */
   colorIndex: number;
 }
 
@@ -35,6 +34,7 @@ const stopwatchSlice = createSlice({
       if (state.status !== 'running') {
         state.status = 'running';
         state.startEpochMs = Date.now();
+
         // Create the very first open lap automatically on Start
         if (state.laps.length === 0) {
           state.laps.push({ id: 1, timestampMs: null, colorIndex: 0 });
@@ -97,7 +97,7 @@ const stopwatchSlice = createSlice({
       const { id, colorIndex } = action.payload;
       const lap = state.laps.find((l) => l.id === id);
       if (!lap) return;
-      // normalize within palette range [0..5]
+
       const paletteSize = 6;
       const normalized =
         ((colorIndex % paletteSize) + paletteSize) % paletteSize;
