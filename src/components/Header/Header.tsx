@@ -1,7 +1,11 @@
 import { Settings } from 'lucide-react';
 import styles from './Header.module.scss';
+import { useAppDispatch } from '@store/hooks';
+import { openSettings } from '@store/slices/settingsSlice';
 
 export const Header = () => {
+  const dispatch = useAppDispatch();
+
   return (
     <header className={styles.header}>
       <div className="container">
@@ -10,7 +14,6 @@ export const Header = () => {
             xmlns="http://www.w3.org/2000/svg"
             width="106.16"
             height="126.14"
-            data-name="Слой 1"
             viewBox="0 0 106.16 126.14"
             className={styles.logo}
           >
@@ -22,7 +25,11 @@ export const Header = () => {
             <span>Stop</span>watch
           </h1>
 
-          <button className={styles.settings} aria-label="Settings">
+          <button
+            className={styles.settings}
+            onClick={() => dispatch(openSettings())}
+            aria-label="Settings"
+          >
             <Settings color="black" size={24} />
           </button>
         </div>

@@ -1,4 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { loadSettings } from '@services/settingsStorage';
 
 interface SettingsState {
   soundEnabled: boolean;
@@ -6,20 +7,30 @@ interface SettingsState {
   changeTimeByTap: boolean;
   keepScreenOn: boolean;
   theme: string;
+  isSettingsOpen: boolean;
 }
 
+const persisted = loadSettings();
+
 const initialState: SettingsState = {
-  soundEnabled: false,
-  alertIntervalSec: 60,
-  changeTimeByTap: true,
-  keepScreenOn: false,
-  theme: 'blue',
+  soundEnabled: persisted.soundEnabled ?? false,
+  alertIntervalSec: persisted.alertIntervalSec ?? 60,
+  changeTimeByTap: persisted.changeTimeByTap ?? true,
+  keepScreenOn: persisted.keepScreenOn ?? false,
+  theme: persisted.theme ?? 'default',
+  isSettingsOpen: false,
 };
 
 const settingsSlice = createSlice({
   name: 'settings',
   initialState,
   reducers: {
+    openSettings(state) {
+      state.isSettingsOpen = true;
+    },
+    closeSettings(state) {
+      state.isSettingsOpen = false;
+    },
     toggleSound(state) {
       state.soundEnabled = !state.soundEnabled;
     },
@@ -39,10 +50,13 @@ const settingsSlice = createSlice({
 });
 
 export const {
+  openSettings,
+  closeSettings,
   toggleSound,
   setAlertInterval,
   toggleChangeTimeByTap,
   toggleKeepScreenOn,
   setTheme,
 } = settingsSlice.actions;
+
 export default settingsSlice.reducer;

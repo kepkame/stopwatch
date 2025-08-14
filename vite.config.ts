@@ -47,13 +47,15 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': '/src',
-      '@styles': '/src/styles',
       '@assets': '/src/assets',
       '@components': '/src/components',
-      '@utils': '/src/utils',
-      '@types': '/src/types',
       '@hooks': '/src/hooks',
+      '@pages': '/src/pages',
+      '@services': '/src/services',
       '@store': '/src/store',
+      '@styles': '/src/styles',
+      '@types': '/src/types',
+      '@utils': '/src/utils',
     },
   },
   plugins: [

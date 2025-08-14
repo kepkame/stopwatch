@@ -1,13 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import stopwatchReducer from './slices/stopwatchSlice';
-import settingsReducer from './slices/settingsSlice';
+import { rootReducer } from './rootReducer';
+import { initSettingsPersistence } from './persistence/persistence';
 
 export const store = configureStore({
-  reducer: {
-    stopwatch: stopwatchReducer,
-    settings: settingsReducer,
-  },
+  reducer: rootReducer,
 });
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+initSettingsPersistence(store);
+
+export type { RootState, AppDispatch } from './types';

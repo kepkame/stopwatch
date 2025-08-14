@@ -1,0 +1,107 @@
+@use '@styles/variables';
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.15s ease-out both;
+}
+
+/* модификатор для сайдшита справа */
+.backdropRight {
+  justify-content: flex-end;
+  align-items: stretch;
+}
+
+.backdropRightClosing {
+  animation: fadeOut variables.$duration-fast ease-in both;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  width: min(720px, 92vw);
+  max-height: 88vh;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+  outline: none;
+}
+
+.panelCenter {
+  animation: slideUp variables.$duration-fast ease-out both;
+}
+
+.panelRight {
+  width: 100%;
+  height: 100vh;
+  max-height: none;
+  border-radius: 0;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.25);
+  animation: slideInRight variables.$duration-fast ease-out both;
+}
+
+.panelRightClosing {
+  animation: slideOutRight variables.$duration-fast ease-in both;
+}
+
+@media (min-width: variables.$grid-breakpoints-sm) {
+  .panelRight {
+    width: min(480px, 92vw);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0.6;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0.6;
+    transform: translateX(100%);
+  }
+}
