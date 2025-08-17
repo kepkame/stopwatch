@@ -1,0 +1,43 @@
+@use '@styles/variables';
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 8px 20px;
+}
+
+.title {
+  flex-basis: calc(100% - 32px - 32px);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: center;
+  margin: 0;
+  margin-left: 32px;
+}
+
+.close {
+  flex-basis: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border-radius: variables.$border-radius;
+  border: 0;
+  cursor: pointer;
+
+  svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+    stroke: var(--color-text-primary);
+    transition: stroke variables.$duration-fast ease-in-out;
+  }
+
+  &:hover svg {
+    stroke: var(--color-primary);
+  }
+}

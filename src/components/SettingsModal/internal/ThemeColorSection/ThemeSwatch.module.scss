@@ -1,0 +1,79 @@
+.swatch {
+  position: relative;
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+
+.radio {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  cursor: pointer;
+  outline: none;
+
+  svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    stroke: #ffffff;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.radio:focus-visible + .label,
+.swatch.active .label {
+  box-shadow: 0 0 0 3px var(--color-primary);
+}
+
+.dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.label:hover .dot {
+  transform: scale(0.95);
+}
+
+.radio[value='lightPeach'] + .label .dot {
+  background: linear-gradient(
+    90deg,
+    var(--color-border) 0 50%,
+    var(--color-pench) 50% 100%
+  );
+}
+
+.radio[value='darkPeach'] + .label .dot {
+  background: linear-gradient(
+    90deg,
+    var(--color-gray) 0 50%,
+    var(--color-pench) 50% 100%
+  );
+}
+
+.radio[value='light'] + .label .dot {
+  background: var(--color-border);
+}
+
+.radio[value='dark'] + .label .dot {
+  background: var(--color-gray);
+}
+
+.radio[value='black'] + .label .dot {
+  background: #000000;
+}

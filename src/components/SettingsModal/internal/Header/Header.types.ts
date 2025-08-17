@@ -1,4 +1,4 @@
-export type SettingsModalHeaderProps = {
+export type HeaderProps = {
   onClose: () => void;
   titleId: string;
 };

@@ -7,3 +7,8 @@ export const selectIsSettingsOpen = createSelector(
   [selectSettings],
   (settings) => settings.isSettingsOpen
 );
+
+export const selectAlertIntervalSec = createSelector(
+  [selectSettings],
+  (settings) => settings.alertIntervalSec
+);

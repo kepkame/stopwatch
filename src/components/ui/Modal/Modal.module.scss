@@ -1,4 +1,5 @@
 @use '@styles/variables';
+@use '@styles/animations';
 
 .backdrop {
   position: fixed;
@@ -11,7 +12,6 @@
   animation: fadeIn 0.15s ease-out both;
 }
 
-/* модификатор для сайдшита справа */
 .backdropRight {
   justify-content: flex-end;
   align-items: stretch;
@@ -26,8 +26,8 @@
   flex-direction: column;
   width: min(720px, 92vw);
   max-height: 88vh;
-  background: #fff;
-  border-radius: 16px;
+  background: var(--color-background);
+  border-radius: variables.$border-radius-large;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
   outline: none;
 }
@@ -41,7 +41,7 @@
   height: 100vh;
   max-height: none;
   border-radius: 0;
-  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.25);
+  box-shadow: variables.$box-shadow-lg-side;
   animation: slideInRight variables.$duration-fast ease-out both;
 }
 
@@ -52,56 +52,5 @@
 @media (min-width: variables.$grid-breakpoints-sm) {
   .panelRight {
     width: min(480px, 92vw);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0.6;
-    transform: translateX(100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideOutRight {
-  from {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  to {
-    opacity: 0.6;
-    transform: translateX(100%);
   }
 }

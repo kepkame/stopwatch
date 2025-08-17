@@ -5,7 +5,7 @@ import { setLapColorIndex, start } from '@store/slices/stopwatchSlice';
 import { TimerDisplay } from '@components/TimerDisplay/TimerDisplay';
 import { Controls } from '@components/Controls/Controls';
 import { LapList } from '@components/LapList/LapList';
-import { HeroActionButton } from '@/components/ui/HeroActionButton/HeroActionButton';
+import { HeroActionButton } from '@components/ui/HeroActionButton/HeroActionButton';
 import { useElapsedTime } from '@hooks/useElapsedTime';
 import { formatTime } from '@utils/time/formatTime';
 import { PALETTE_SIZE, cyclicIndex } from '@utils/lapSwipeConfig';

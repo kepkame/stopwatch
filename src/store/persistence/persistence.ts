@@ -1,6 +1,6 @@
 import type { Store } from '@reduxjs/toolkit';
 import type { RootState } from '../types';
-import { saveSettings } from '@/services/settingsStorage';
+import { saveSettings } from '@services/settingsStorage';
 
 type PersistableSettings = Pick<
   RootState['settings'],

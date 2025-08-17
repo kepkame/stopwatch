@@ -9,8 +9,8 @@ import styles from './AnimatedDigits.module.scss';
 type AnimatedDigitsProps = {
   value: string;
   className?: string;
-  announce?: boolean; // render SR-only textual value
-  remeasureKey?: unknown; // force remeasure on external layout/transform changes
+  announce?: boolean;
+  remeasureKey?: unknown;
 };
 
 export const AnimatedDigits: React.FC<AnimatedDigitsProps> = ({

@@ -3,8 +3,7 @@ import { useEffect, useState } from 'react';
 type Status = 'idle' | 'running' | 'paused';
 
 /**
- * Хук для вычисления текущего прошедшего времени в миллисекундах.
- * Не вызывает глобальных ререндеров — состояние локальное.
+ * Custom hook for calculating elapsed time in milliseconds.
  */
 export function useElapsedTime(
   startEpochMs: number | null,
@@ -17,6 +16,7 @@ export function useElapsedTime(
     let rafId: number;
 
     if (status === 'running' && startEpochMs !== null) {
+      // Continuously updates elapsed time using requestAnimationFrame
       const tick = () => {
         const now = Date.now();
         const total = accumulatedMs + (now - startEpochMs);
@@ -25,7 +25,7 @@ export function useElapsedTime(
       };
       tick();
     } else {
-      // Если не бежим — показываем накопленное
+      // When paused or idle, only show accumulated time without updates
       setElapsed(accumulatedMs);
     }
 

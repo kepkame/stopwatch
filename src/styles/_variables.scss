@@ -9,6 +9,7 @@
   --color-primary: hsl(23 100% 50%);
   --color-primary-light: hsl(23 84% 56%);
   --color-primary-dark: hsl(23 100% 44%);
+  --color-primary-transparent: hsl(23 100% 50% / 10%);
 
   /* === Primary gradients === */
   --color-primary-gradient: #{functions.primary-gradient(
@@ -22,11 +23,13 @@
 
   /* === Base UI colors === */
   --color-background: #efefef;
+  --color-border: #c3c3c3;
   --color-text-primary: #353535;
   --color-text-secondary: #ffffff;
+  --color-disabled-transparent: rgba(121, 121, 121, 0.2);
 
   /* === Additional solid colors === */
-  --color-gray: #757575;
+  --color-gray: #797979;
   --color-pench: #ff9859;
   --color-green: #01b6ae;
   --color-blue: #5ca3ff;
@@ -53,6 +56,12 @@ $font-family-numbers: 'Roboto Mono', system-ui, Avenir, Helvetica, Arial,
 
 /* === Border radius === */
 $border-radius: 0.5rem;
+$border-radius-large: 1rem;
+
+/* === Box shadow === */
+$box-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+$box-shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.25);
+$box-shadow-lg-side: -10px 0 40px rgba(0, 0, 0, 0.25);
 
 /* === Breakpoints === */
 $grid-breakpoints-sm: 576px;

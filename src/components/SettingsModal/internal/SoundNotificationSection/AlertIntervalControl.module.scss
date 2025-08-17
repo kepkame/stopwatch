@@ -1,0 +1,11 @@
+.interval {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.label {
+  font-weight: 700;
+}

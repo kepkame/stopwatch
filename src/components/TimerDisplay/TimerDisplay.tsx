@@ -1,11 +1,12 @@
-import clsx from 'clsx';
 import { useCallback } from 'react';
-import { useTimerDisplay } from '@hooks/useTimerDisplay';
+import clsx from 'clsx';
+import { useCountdownEndAlert } from '@hooks/useCountdownEndAlert';
 import { useTimerAltAnimation } from '@hooks/useTimerAltAnimation';
+import { useTimerDisplay } from '@hooks/useTimerDisplay';
 import { AnimatedDigits } from './AnimatedDigits';
 import styles from './TimerDisplay.module.scss';
 
-export const TimerDisplay: React.FC = () => {
+export const TimerDisplay = () => {
   const {
     elapsedStr,
     diffStr,
@@ -22,6 +23,8 @@ export const TimerDisplay: React.FC = () => {
     ariaLabel,
     cycleMode,
   } = useTimerDisplay();
+
+  useCountdownEndAlert();
 
   const { isAltShown, isSoftAltAnimation, isBlinkTransition, shouldBlink } =
     useTimerAltAnimation(mode);

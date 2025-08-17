@@ -1,0 +1,64 @@
+@use '@styles/variables';
+
+.switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: var(--color-border);
+  border: none;
+  border-radius: variables.$border-radius-large;
+  padding: 0;
+  transition: background-color variables.$duration-fast ease,
+    box-shadow variables.$duration-fast ease;
+  outline: none;
+  cursor: pointer;
+}
+
+.thumb {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  background: var(--color-text-secondary);
+  border-radius: variables.$border-radius-large;
+  box-shadow: variables.$box-shadow-sm;
+  transition: transform variables.$duration-fast ease;
+}
+
+/* Enabled state */
+.on {
+  background: var(--color-primary);
+}
+
+/* Size md */
+.md {
+  width: 52px;
+  height: 32px;
+}
+.md .thumb {
+  width: 24px;
+  height: 24px;
+}
+.on.md .thumb {
+  transform: translateX(20px);
+}
+
+/* Size sm */
+.sm {
+  width: 44px;
+  height: 24px;
+}
+.sm .thumb {
+  width: 16px;
+  height: 16px;
+}
+.on.sm .thumb {
+  transform: translateX(18px);
+}
+
+/* Disabled */
+.disabled {
+  box-shadow: none;
+  opacity: 0.55;
+  cursor: not-allowed;
+}

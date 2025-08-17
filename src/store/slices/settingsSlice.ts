@@ -12,12 +12,26 @@ interface SettingsState {
 
 const persisted = loadSettings();
 
+const preferredDefaultTheme = (): string => {
+  try {
+    if (
+      typeof window !== 'undefined' &&
+      window.matchMedia?.('(prefers-color-scheme: dark)').matches
+    ) {
+      return 'darkPeach';
+    }
+  } catch {
+    // ignore
+  }
+  return 'lightPeach';
+};
+
 const initialState: SettingsState = {
   soundEnabled: persisted.soundEnabled ?? false,
-  alertIntervalSec: persisted.alertIntervalSec ?? 60,
+  alertIntervalSec: persisted.alertIntervalSec ?? 40,
   changeTimeByTap: persisted.changeTimeByTap ?? true,
-  keepScreenOn: persisted.keepScreenOn ?? false,
-  theme: persisted.theme ?? 'default',
+  keepScreenOn: persisted.keepScreenOn ?? true,
+  theme: persisted.theme ?? preferredDefaultTheme(),
   isSettingsOpen: false,
 };
 
