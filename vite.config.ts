@@ -11,7 +11,7 @@ const manifest: Partial<ManifestOptions> | false = {
   display: 'standalone',
   orientation: 'any',
   background_color: '#ffffff',
-  theme_color: '#e9773d',
+  theme_color: '#27292d',
   dir: 'ltr',
   lang: 'en',
   icons: [
