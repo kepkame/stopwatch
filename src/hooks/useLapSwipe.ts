@@ -21,7 +21,6 @@ export interface UseLapSwipeResult {
   containerRef: RefObject<HTMLDivElement | null>;
   overlayRef: RefObject<HTMLDivElement | null>;
   overlayRtl: boolean;
-  colorClassFor: (idx: number) => string | undefined;
   onPointerDown: PointerEventHandler<HTMLDivElement>;
   onPointerMove: PointerEventHandler<HTMLDivElement>;
   onPointerUp: PointerEventHandler<HTMLDivElement>;
@@ -29,10 +28,9 @@ export interface UseLapSwipeResult {
   onKeyDown: KeyboardEventHandler<HTMLDivElement>;
 }
 
-export const useLapSwipe = (
-  { onChangeColor }: UseLapSwipeParams,
-  styles: Record<string, string>
-): UseLapSwipeResult => {
+export const useLapSwipe = ({
+  onChangeColor,
+}: UseLapSwipeParams): UseLapSwipeResult => {
   const startX = useRef<number | null>(null);
   const startY = useRef<number | null>(null);
   const swiped = useRef<boolean>(false);
@@ -63,12 +61,6 @@ export const useLapSwipe = (
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
-
-  const colorClassFor = useCallback(
-    (idx: number) =>
-      styles[`color-${idx}` as keyof typeof styles] as string | undefined,
-    [styles]
-  );
 
   const resetGesture = useCallback((e: ReactPointerEvent<HTMLDivElement>) => {
     try {
@@ -220,7 +212,7 @@ export const useLapSwipe = (
 
   const onKeyDown: KeyboardEventHandler<HTMLDivElement> = useCallback(
     (e) => {
-      if (!e.shiftKey) return;
+      // if (!e.shiftKey) return;
       const lapWidth = lapWidthRef.current || 0;
       if (e.key === 'ArrowRight') {
         e.preventDefault();
@@ -263,7 +255,6 @@ export const useLapSwipe = (
     containerRef,
     overlayRef,
     overlayRtl,
-    colorClassFor,
     onPointerDown,
     onPointerMove: onPointerMoveRouted,
     onPointerUp,

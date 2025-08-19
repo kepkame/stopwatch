@@ -1,3 +1,11 @@
+import {
+  SETTINGS_DEFAULTS,
+  isTheme,
+  type Theme,
+  type SettingsShape,
+} from '@shared/config/settings';
+import { PERSISTED_SETTING_KEYS } from './keys';
+
 /**
  * Centralized persistence layer for user settings.
  * Decoupled from Redux for use in any part of the app.
@@ -7,13 +15,8 @@
 // Current storage schema version for compatibility checks
 const SCHEMA_VERSION = 1 as const;
 
-export type SettingsPersistedCurrent = {
+export type SettingsPersistedCurrent = SettingsShape & {
   _v: typeof SCHEMA_VERSION;
-  soundEnabled: boolean;
-  alertIntervalSec: number;
-  changeTimeByTap: boolean;
-  keepScreenOn: boolean;
-  theme: string;
 };
 
 // LocalStorage key for all persisted settings (no environment-based variants)
@@ -23,8 +26,8 @@ const STORAGE_KEY = 'stopwatch:settings';
  * Determines if a value is a plain object (non-null, non-array).
  * Used as a strict type guard before attempting migrations.
  */
-function isPlainObject(v: unknown): v is Record<string, unknown> {
-  return typeof v === 'object' && v !== null && !Array.isArray(v);
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
 /**
@@ -33,18 +36,26 @@ function isPlainObject(v: unknown): v is Record<string, unknown> {
 function normalizeToCurrent(
   anyData: Record<string, unknown>
 ): SettingsPersistedCurrent {
-  const bool = (x: unknown, df = false) => (typeof x === 'boolean' ? x : df);
-  const num = (x: unknown, df = 60) =>
+  const bool = (x: unknown, df: boolean) => (typeof x === 'boolean' ? x : df);
+  const num = (x: unknown, df: number) =>
     typeof x === 'number' && Number.isFinite(x) ? x : df;
-  const str = (x: unknown, df = 'default') => (typeof x === 'string' ? x : df);
+  const theme = isTheme(anyData.theme)
+    ? (anyData.theme as Theme)
+    : SETTINGS_DEFAULTS.theme;
 
   return {
     _v: SCHEMA_VERSION,
-    soundEnabled: bool(anyData.soundEnabled, false),
-    alertIntervalSec: num(anyData.alertIntervalSec, 60),
-    changeTimeByTap: bool(anyData.changeTimeByTap, true),
-    keepScreenOn: bool(anyData.keepScreenOn, false),
-    theme: str(anyData.theme, 'default'),
+    soundEnabled: bool(anyData.soundEnabled, SETTINGS_DEFAULTS.soundEnabled),
+    alertIntervalSec: num(
+      anyData.alertIntervalSec,
+      SETTINGS_DEFAULTS.alertIntervalSec
+    ),
+    changeTimeByTap: bool(
+      anyData.changeTimeByTap,
+      SETTINGS_DEFAULTS.changeTimeByTap
+    ),
+    keepScreenOn: bool(anyData.keepScreenOn, SETTINGS_DEFAULTS.keepScreenOn),
+    theme,
   };
 }
 
@@ -78,9 +89,7 @@ function migrateToCurrent(raw: unknown): SettingsPersistedCurrent | null {
   let data: Record<string, unknown> = raw;
   while (fromVersion < SCHEMA_VERSION) {
     const migrate = MIGRATIONS[fromVersion];
-    if (!migrate) {
-      return null;
-    }
+    if (!migrate) return null;
     data = migrate(data);
     fromVersion += 1;
   }
@@ -107,9 +116,40 @@ function parseJSON(raw: string | null): unknown {
  */
 export function loadSettings(): Partial<SettingsPersistedCurrent> {
   try {
-    const parsed = parseJSON(localStorage.getItem(STORAGE_KEY));
+    const raw = localStorage.getItem(STORAGE_KEY);
+    const parsed = parseJSON(raw);
+    if (!isPlainObject(parsed)) return {};
+
     const migrated = migrateToCurrent(parsed);
-    return migrated ?? {};
+    if (!migrated) return {};
+
+    const out: Partial<SettingsPersistedCurrent> = {};
+
+    for (const key of PERSISTED_SETTING_KEYS) {
+      if (!(key in parsed)) continue;
+
+      switch (key) {
+        case 'soundEnabled':
+          out.soundEnabled = migrated.soundEnabled;
+          break;
+        case 'alertIntervalSec':
+          out.alertIntervalSec = migrated.alertIntervalSec;
+          break;
+        case 'changeTimeByTap':
+          out.changeTimeByTap = migrated.changeTimeByTap;
+          break;
+        case 'keepScreenOn':
+          out.keepScreenOn = migrated.keepScreenOn;
+          break;
+      }
+    }
+
+    // theme обрабатываем отдельно
+    if ('theme' in parsed && isTheme(migrated.theme)) {
+      out.theme = migrated.theme;
+    }
+
+    return out;
   } catch {
     return {};
   }

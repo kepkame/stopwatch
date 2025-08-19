@@ -8,7 +8,7 @@ import { LapList } from '@components/LapList/LapList';
 import { HeroActionButton } from '@components/ui/HeroActionButton/HeroActionButton';
 import { useElapsedTime } from '@hooks/useElapsedTime';
 import { formatTime } from '@utils/time/formatTime';
-import { PALETTE_SIZE, cyclicIndex } from '@utils/lapSwipeConfig';
+import { PALETTE_LENGTH, cyclicIndex } from '@utils/lapSwipeConfig';
 import styles from './StopwatchPage.module.scss';
 
 const StopwatchPage = () => {
@@ -40,8 +40,11 @@ const StopwatchPage = () => {
   const handleChangeColor = (lap: number, delta: 1 | -1) => {
     const current = laps.find((l) => l.id === lap);
     if (!current) return;
-    const next = cyclicIndex(current.colorIndex, delta, PALETTE_SIZE);
-    dispatch(setLapColorIndex({ id: lap, colorIndex: next }));
+    const len = PALETTE_LENGTH();
+    const next = cyclicIndex(current.colorIndex, delta, len);
+    dispatch(
+      setLapColorIndex({ id: lap, colorIndex: next, paletteLength: len })
+    );
   };
 
   const handleStart = () => {

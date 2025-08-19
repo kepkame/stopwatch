@@ -52,6 +52,7 @@ export default defineConfig({
       '@hooks': '/src/hooks',
       '@pages': '/src/pages',
       '@services': '/src/services',
+      '@shared': '/src/shared',
       '@store': '/src/store',
       '@styles': '/src/styles',
       '@types': '/src/types',

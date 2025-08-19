@@ -1,7 +1,11 @@
 import clsx from 'clsx';
 import { m } from 'motion/react';
 import { useLapSwipe } from '@hooks/useLapSwipe';
-import { cyclicIndex } from '@utils/lapSwipeConfig';
+import {
+  cyclicIndex,
+  PALETTE_LENGTH,
+  normalizeColorIndex,
+} from '@utils/lapSwipeConfig';
 import type { LapItemProps } from './LapList.types';
 import styles from './LapList.module.scss';
 
@@ -21,15 +25,16 @@ export const LapItem = ({
     containerRef,
     overlayRef,
     overlayRtl,
-    colorClassFor,
     onPointerDown,
     onPointerMove,
     onPointerUp,
     onPointerCancel,
     onKeyDown,
-  } = useLapSwipe({ onChangeColor: changeColorBy }, styles);
+  } = useLapSwipe({ onChangeColor: changeColorBy });
 
-  const colorClass = colorClassFor(colorIndex);
+  const length = PALETTE_LENGTH();
+  const normalized = normalizeColorIndex(colorIndex, length);
+  const previewIndex = cyclicIndex(normalized, overlayRtl ? -1 : 1, length);
 
   return (
     <m.div
@@ -42,7 +47,8 @@ export const LapItem = ({
         layout: { duration: DURATION_S, ease: EASE },
       }}
       style={{ transformOrigin: 'top center' }}
-      className={clsx(styles.lap, colorClass)}
+      className={clsx(styles.lap)}
+      data-color-index={normalized}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
@@ -58,14 +64,9 @@ export const LapItem = ({
         className={clsx(
           styles['lap__overlay'],
           overlayRtl && styles.rtl,
-          overlayRtl ? styles.roundedRtl : styles.rounded,
-          styles[
-            `color-${cyclicIndex(
-              colorIndex,
-              overlayRtl ? -1 : 1
-            )}` as keyof typeof styles
-          ] as string
+          overlayRtl ? styles.roundedRtl : styles.rounded
         )}
+        data-color-index={previewIndex}
         aria-hidden
       />
       <div className={styles['lap__content']}>

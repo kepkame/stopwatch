@@ -53,7 +53,7 @@
 .radio[value='lightPeach'] + .label .dot {
   background: linear-gradient(
     90deg,
-    var(--color-border) 0 50%,
+    #c3c3c3 0 50%,
     var(--color-pench) 50% 100%
   );
 }
@@ -61,19 +61,20 @@
 .radio[value='darkPeach'] + .label .dot {
   background: linear-gradient(
     90deg,
-    var(--color-gray) 0 50%,
+    #797979 0 50%,
     var(--color-pench) 50% 100%
   );
 }
 
 .radio[value='light'] + .label .dot {
-  background: var(--color-border);
+  background: #c3c3c3;
 }
 
 .radio[value='dark'] + .label .dot {
-  background: var(--color-gray);
+  background: #797979;
 }
 
 .radio[value='black'] + .label .dot {
   background: #000000;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.12);
 }

@@ -11,8 +11,6 @@ export function setAlertSrc(src: string) {
 function createAudio(src: string): HTMLAudioElement {
   const a = new Audio(src);
   a.preload = 'auto';
-  // If the file is on a different domain, you can expose it:
-  // a.crossOrigin = 'anonymous';
   return a;
 }
 

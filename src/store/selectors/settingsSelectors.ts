@@ -12,3 +12,8 @@ export const selectAlertIntervalSec = createSelector(
   [selectSettings],
   (settings) => settings.alertIntervalSec
 );
+
+export const selectTheme = createSelector(
+  [selectSettings],
+  (settings) => settings.theme
+);

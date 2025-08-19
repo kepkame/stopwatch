@@ -1,4 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { normalizeColorIndex } from '@utils/lapSwipeConfig';
 
 const MIN_LAP_GUARD_MS = 400;
 
@@ -89,19 +90,25 @@ const stopwatchSlice = createSlice({
         // nextAlertAtMs will be set externally via thunk
       }
     },
-    /** Set color index for a specific lap by id */
+    // Set color index for a specific lap by id
     setLapColorIndex(
       state,
-      action: PayloadAction<{ id: number; colorIndex: number }>
+      action: PayloadAction<{
+        id: number;
+        colorIndex: number;
+        paletteLength: number;
+      }>
     ) {
-      const { id, colorIndex } = action.payload;
+      const { id, colorIndex, paletteLength } = action.payload;
       const lap = state.laps.find((l) => l.id === id);
       if (!lap) return;
-
-      const paletteSize = 6;
-      const normalized =
-        ((colorIndex % paletteSize) + paletteSize) % paletteSize;
-      lap.colorIndex = normalized;
+      lap.colorIndex = normalizeColorIndex(colorIndex, paletteLength);
+    },
+    normalizeAllLapColors(state, action: PayloadAction<number>) {
+      const length = Math.max(1, action.payload | 0);
+      for (const lap of state.laps) {
+        lap.colorIndex = normalizeColorIndex(lap.colorIndex, length);
+      }
     },
     setNextAlert(state, action: PayloadAction<number | null>) {
       state.nextAlertAtMs = action.payload;
@@ -109,6 +116,13 @@ const stopwatchSlice = createSlice({
   },
 });
 
-export const { start, pause, reset, addLap, setNextAlert, setLapColorIndex } =
-  stopwatchSlice.actions;
+export const {
+  start,
+  pause,
+  reset,
+  addLap,
+  setLapColorIndex,
+  normalizeAllLapColors,
+  setNextAlert,
+} = stopwatchSlice.actions;
 export default stopwatchSlice.reducer;

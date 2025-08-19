@@ -26,6 +26,7 @@
   --color-border: #c3c3c3;
   --color-text-primary: #353535;
   --color-text-secondary: #ffffff;
+  --color-disabled: #909090;
   --color-disabled-transparent: rgba(121, 121, 121, 0.2);
 
   /* === Additional solid colors === */
@@ -36,6 +37,13 @@
   --color-purple: #7566ff;
   --color-pink: #ef7a98;
 
+  --color-gray-dark: #717171;
+  --color-pench-dark: #e98b63;
+  --color-green-dark: #269d72;
+  --color-blue-dark: #4499dc;
+  --color-purple-dark: #875eee;
+  --color-pink-dark: #e758a6;
+
   /* === Additional gradients === */
   --color-gray-gradient: linear-gradient(135deg, #a1a1a1 0%, #797979 100%);
   --color-pench-gradient: linear-gradient(135deg, #ffbe7d 0%, #f98c55 100%);
@@ -43,6 +51,29 @@
   --color-blue-gradient: linear-gradient(135deg, #3bc9fb 0%, #4d9bff 100%);
   --color-purple-gradient: linear-gradient(135deg, #c498ff 0%, #6f78fb 100%);
   --color-pink-gradient: linear-gradient(135deg, #ff99c0 0%, #f06686 100%);
+
+  --color-gray-dark-gradient: linear-gradient(135deg, #808080 0%, #616161 100%);
+  --color-pench-dark-gradient: linear-gradient(
+    135deg,
+    #e6a360 0%,
+    #f2785a 100%
+  );
+  --color-green-dark-gradient: linear-gradient(
+    135deg,
+    #47dca5 0%,
+    #088c86 100%
+  );
+  --color-blue-dark-gradient: linear-gradient(135deg, #45b2d9 0%, #3481e5 100%);
+  --color-purple-dark-gradient: linear-gradient(
+    135deg,
+    #a366f5 0%,
+    #534bec 100%
+  );
+  --color-pink-dark-gradient: linear-gradient(135deg, #ee58bd 0%, #e55d7f 100%);
+
+  /* === Button === */
+  --btn-border-width: 0;
+  --btn-border-color: transparent;
 }
 
 /* ============================================================

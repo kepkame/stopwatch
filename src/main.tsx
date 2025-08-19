@@ -6,6 +6,7 @@ import App from './App.tsx';
 
 import 'focus-visible';
 import { registerSW } from 'virtual:pwa-register';
+import { ThemeEffect } from './features/theme/ThemeEffect';
 
 registerSW({
   immediate: true,
@@ -13,6 +14,7 @@ registerSW({
 
 createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
+    <ThemeEffect />
     <App />
   </Provider>
 );

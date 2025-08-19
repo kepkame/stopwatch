@@ -1,5 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { loadSettings } from '@services/settingsStorage';
+import { type Theme, SETTINGS_DEFAULTS } from '@shared/config/settings';
 
 interface SettingsState {
   soundEnabled: boolean;
@@ -12,7 +13,7 @@ interface SettingsState {
 
 const persisted = loadSettings();
 
-const preferredDefaultTheme = (): string => {
+const preferredDefaultTheme = (): Theme => {
   try {
     if (
       typeof window !== 'undefined' &&
@@ -23,7 +24,7 @@ const preferredDefaultTheme = (): string => {
   } catch {
     // ignore
   }
-  return 'lightPeach';
+  return SETTINGS_DEFAULTS.theme;
 };
 
 const initialState: SettingsState = {
@@ -31,7 +32,7 @@ const initialState: SettingsState = {
   alertIntervalSec: persisted.alertIntervalSec ?? 40,
   changeTimeByTap: persisted.changeTimeByTap ?? true,
   keepScreenOn: persisted.keepScreenOn ?? true,
-  theme: persisted.theme ?? preferredDefaultTheme(),
+  theme: (persisted.theme as Theme | undefined) ?? preferredDefaultTheme(),
   isSettingsOpen: false,
 };
 
@@ -57,7 +58,7 @@ const settingsSlice = createSlice({
     toggleKeepScreenOn(state) {
       state.keepScreenOn = !state.keepScreenOn;
     },
-    setTheme(state, action: PayloadAction<string>) {
+    setTheme(state, action: PayloadAction<Theme>) {
       state.theme = action.payload;
     },
   },

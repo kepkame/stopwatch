@@ -1,12 +1,9 @@
 :root {
+  --lap-palette-length: 6;
+
   /* ============================================================
      THEME COLOR TOKENS
      ============================================================ */
-
-  /* === Base theme colors === */
-  --color-text-primary: #353535;
-  --color-text-secondary: #ffffff;
-  --color-bg: #efefef;
 
   /* === Accent color (same logic as solid buttons) === */
   --accent-h: 23;
@@ -14,19 +11,19 @@
   --accent-l: 56%;
 
   /* === Accent hover color === */
-  /* Same as: hsl(23, 100%, 44%) */
+  // Same as: hsl(23, 100%, 44%)
   --accent-hover-s: 100%;
   --accent-hover-l: 44%;
 
   /* === Gradient stop positions === */
-  /* Can be adjusted per theme */
+  // Can be adjusted per theme
   --g-stop1: 0%;
   --g-stop2: 28%;
   --g-stop3: 72%;
   --g-stop4: 100%;
 
   /* === Delta values for NORMAL state === */
-  /* Universal across all themes */
+  // Universal across all themes
   --g-s1: -6%;
   --g-l1: +10%;
   --g-s2: 0%;
@@ -37,7 +34,7 @@
   --g-l4: -14%;
 
   /* === Delta values for HOVER state === */
-  /* More contrast, but still within theme palette */
+  // More contrast, but still within theme palette
   --g-s1-h: -4%;
   --g-l1-h: +18%;
   --g-s2-h: +6%;
@@ -46,6 +43,154 @@
   --g-l3-h: -10%;
   --g-s4-h: +10%;
   --g-l4-h: -20%;
+}
+
+/* === THEME: lightPeach (light, peach accent) === */
+html[data-theme='lightPeach'] {
+  --lap-palette-length: 6;
+
+  // Accent and related variable trio (for focus/borders, etc.)
+  --accent-h: 23;
+  --accent-s: 84%;
+  --accent-l: 56%;
+  --accent-hover-s: 100%;
+  --accent-hover-l: 44%;
+
+  --color-primary: hsl(23 100% 50%);
+  --color-primary-light: hsl(23 84% 56%);
+  --color-primary-dark: hsl(23 100% 44%);
+  --color-primary-transparent: hsl(23 100% 50% / 10%);
+
+  --color-background: #efefef;
+  --color-border: #c3c3c3;
+  --color-text-primary: #353535;
+  --color-text-secondary: #ffffff;
+  --color-disabled-transparent: rgba(121, 121, 121, 0.2);
+  --btn-border-color: var(--color-primary-dark);
+}
+
+/* === THEME: darkPeach (dark, peach accent) === */
+html[data-theme='darkPeach'] {
+  --lap-palette-length: 6;
+
+  --accent-h: 23;
+  --accent-s: 84%;
+  --accent-l: 58%;
+  --accent-hover-s: 100%;
+  --accent-hover-l: 52%;
+
+  --color-primary: hsl(23 92% 56%);
+  --color-primary-light: hsl(23 84% 60%);
+  --color-primary-dark: hsl(23 100% 48%);
+  --color-primary-transparent: hsl(23 100% 60% / 12%);
+
+  --color-background: #27292d;
+  --color-border: #606060;
+  --color-text-primary: #e9e9ea;
+  --color-text-secondary: #f5f5f5;
+  --color-disabled-transparent: rgba(255, 255, 255, 0.12);
+  --btn-border-color: var(--color-primary-dark);
+
+  /* === Additional solid colors === */
+  --color-gray: var(--color-gray-dark);
+  --color-pench: var(--color-pench-dark);
+  --color-green: var(--color-green-dark);
+  --color-blue: var(--color-blue-dark);
+  --color-purple: var(--color-purple-dark);
+  --color-pink: var(--color-pink-dark);
+
+  /* === Additional gradients === */
+  --color-gray-gradient: var(--color-gray-dark-gradient);
+  --color-pench-gradient: var(--color-pench-dark-gradient);
+  --color-green-gradient: var(--color-green-dark-gradient);
+  --color-blue-gradient: var(--color-blue-dark-gradient);
+  --color-purple-gradient: var(--color-purple-dark-gradient);
+  --color-pink-gradient: var(--color-pink-dark-gradient);
+}
+
+/* === THEME: light (light, blue accent) === */
+html[data-theme='light'] {
+  --lap-palette-length: 2;
+
+  --accent-h: 210;
+  --accent-s: 90%;
+  --accent-l: 50%;
+  --accent-hover-s: 98%;
+  --accent-hover-l: 38%;
+
+  --color-primary: hsl(210 83% 56%);
+  --color-primary-light: hsl(210 73% 62%);
+  --color-primary-dark: hsl(210 81% 44%);
+  --color-primary-transparent: hsl(210 100% 50% / 10%);
+
+  --color-background: #fafafa;
+  --color-border: #c3c3c3;
+  --color-text-primary: #2a2a2a;
+  --color-text-secondary: #ffffff;
+  --color-disabled-transparent: rgba(121, 121, 121, 0.2);
+  --btn-border-color: var(--color-primary-dark);
+}
+
+/* === THEME: dark (dark, purple accent) === */
+html[data-theme='dark'] {
+  --lap-palette-length: 2;
+
+  --accent-h: 250;
+  --accent-s: 50%;
+  --accent-l: 58%;
+  --accent-hover-s: 53%;
+  --accent-hover-l: 46%;
+
+  --color-primary: hsl(250 50% 60%);
+  --color-primary-light: hsl(250 45% 65%);
+  --color-primary-dark: hsl(250 53% 53%);
+  --color-primary-transparent: hsl(250 100% 60% / 14%);
+
+  --color-background: #27292d;
+  --color-border: #606060;
+  --color-text-primary: #e9e9ea;
+  --color-text-secondary: #f5f5f5;
+  --color-disabled-transparent: rgba(255, 255, 255, 0.2);
+  --btn-border-color: var(--color-primary-light);
+}
+
+/* === THEME: black (maximum contrast) === */
+html[data-theme='black'] {
+  --lap-palette-length: 2;
+
+  --accent-h: 0;
+  --accent-s: 0%;
+  --accent-l: 100%;
+  --accent-hover-s: 0%;
+  --accent-hover-l: 30%;
+
+  --color-primary: hsl(0 0% 100%);
+  --color-primary-light: hsl(0 0% 0%);
+  --color-primary-dark: hsl(0 0% 70%);
+  --color-primary-transparent: rgba(255, 255, 255, 0.21);
+
+  --color-background: #000000;
+  --color-text-primary: #e6e6e6;
+  --color-text-secondary: #ffffff;
+  --color-disabled-transparent: rgba(255, 255, 255, 0.16);
+
+  --btn-surface-color: transparent;
+  --btn-label-color: #ffffff;
+  --btn-border-color: #ffffff;
+  --btn-border-width: 2px;
+  --btn-surface-disabled: rgba(191, 191, 191, 0.4);
+
+  /* === Switch === */
+  --switch-surface-color: #353535;
+  --switch-on-surface-color: #5c5c5c;
+  --thumb-surface-color: #b0b0b0;
+  --thumb-on-surface-color: #ffffff;
+
+  --btn-surface-color-hover: rgba(255, 255, 255, 0.08);
+  --btn-surface-color-active: rgba(255, 255, 255, 0.16);
+
+  /* === Hero Action Button === */
+  --hero-stroke-color: var(--color-background);
 }
 
 @supports (color: oklch(0 0 0)) {

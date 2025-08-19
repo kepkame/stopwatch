@@ -6,12 +6,15 @@
 .btn {
   font-size: 0.875rem;
   color: var(--color-text-secondary);
-  background-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
-  border: none;
+  background-color: var(
+    --btn-surface-color,
+    hsl(var(--accent-h) var(--accent-s) var(--accent-l))
+  );
+  border: var(--btn-border-width) solid var(--btn-border-color);
   border-radius: variables.$border-radius;
   padding: 12px 20px 11px;
-  cursor: pointer;
   transition: background-color variables.$duration ease-in-out;
+  cursor: pointer;
 
   &:hover {
     background-color: hsl(
@@ -20,7 +23,7 @@
   }
 
   &:disabled {
-    background-color: #909090;
+    background-color: var(--btn-surface-disabled, var(--color-disabled));
     cursor: not-allowed;
   }
 
@@ -39,8 +42,9 @@
       background-color: hsl(
         var(--accent-h) var(--accent-hover-s) var(--accent-hover-l)
       );
-      border-color: hsl(
-        var(--accent-h) var(--accent-hover-s) var(--accent-hover-l)
+      border-color: var(
+        --btn-border-color,
+        hsl(var(--accent-h) var(--accent-hover-s) var(--accent-hover-l))
       );
     }
 
@@ -84,7 +88,7 @@
 
   /* === Gradient button === */
   &--gradient {
-    /* Gradient stop colors (computed from theme tokens) */
+    // Gradient stop colors (computed from theme tokens)
     --grad-c1: hsl(
       var(--accent-h) clamp(0%, calc(var(--accent-s) + var(--g-s1)), 100%)
         clamp(0%, calc(var(--accent-l) + var(--g-l1)), 100%)
@@ -107,7 +111,7 @@
     color: var(--color-text-secondary);
     background-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
 
-    background: linear-gradient(
+    background-image: linear-gradient(
       135deg,
       var(--grad-c1) var(--g-stop1),
       var(--grad-c2) var(--g-stop2),
@@ -122,7 +126,7 @@
       --grad-c4 variables.$duration-fast ease-in-out;
     cursor: pointer;
 
-    /* Hover updates only gradient stops – background shorthand untouched */
+    // Hover updates only gradient stops – background shorthand untouched
     &:hover {
       --grad-c1: hsl(
         var(--accent-h)

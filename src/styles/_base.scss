@@ -100,7 +100,7 @@ a {
    MAIN LAYOUT
    ============================================================ */
 main {
-  height: calc(100dvh - 48px); /* header height */
+  height: calc(100dvh - 48px); // header height
 }
 
 button {
@@ -128,18 +128,18 @@ img {
    ACCESSIBILITY
    ============================================================ */
 
-/* Hide default focus outline for mouse users */
+// Hide default focus outline for mouse users
 .js-focus-visible :focus:not(.focus-visible) {
   outline: none;
 }
 
-/* Strong focus indicator for keyboard users */
+// Strong focus indicator for keyboard users
 .js-focus-visible .focus-visible {
   outline: 2px solid var(--color-primary-dark);
   outline-offset: 2px;
 }
 
-/* Visually hidden but accessible for screen readers */
+// Visually hidden but accessible for screen readers
 .visually-hidden:not(:focus):not(:active) {
   position: absolute;
   width: 1px;

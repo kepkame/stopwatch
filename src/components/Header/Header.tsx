@@ -12,8 +12,8 @@ export const Header = () => {
         <div className={styles.wrapper}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="106.16"
-            height="126.14"
+            width="20"
+            height="24"
             viewBox="0 0 106.16 126.14"
             className={styles.logo}
           >
