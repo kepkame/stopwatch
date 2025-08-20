@@ -1,6 +1,7 @@
 import type { Store } from '@reduxjs/toolkit';
 import type { RootState } from '../types';
 import { saveSettings } from '@services/settingsStorage';
+import { debounce } from '@utils/debounce';
 
 type PersistableSettings = Pick<
   RootState['settings'],
@@ -19,25 +20,30 @@ const selectPersistable = (state: RootState): PersistableSettings => ({
   theme: state.settings.theme,
 });
 
-function debounce(fn: () => void, ms: number): () => void {
-  let t: ReturnType<typeof setTimeout> | undefined;
-  return () => {
-    if (t) clearTimeout(t);
-    t = setTimeout(fn, ms);
-  };
-}
+const DEBOUNCE_MS = 150;
 
-export function initSettingsPersistence(store: Store<RootState>): void {
-  let lastSerialized = '';
+export function initSettingsPersistence(store: Store<RootState>): () => void {
+  let lastSerialized = JSON.stringify(selectPersistable(store.getState()));
 
-  const persistSafely = () => {
+  // Persists settings only if there was a meaningful change
+  const persistIfChanged = () => {
     const slice = selectPersistable(store.getState());
     const nextSerialized = JSON.stringify(slice);
+
     if (nextSerialized !== lastSerialized) {
       lastSerialized = nextSerialized;
-      saveSettings(slice);
+      try {
+        saveSettings(slice);
+      } catch {
+        // Errors are silently ignored
+      }
     }
   };
 
-  store.subscribe(debounce(persistSafely, 150));
+  const unsubscribe = store.subscribe(debounce(persistIfChanged, DEBOUNCE_MS));
+
+  // Return unsubscribe function so persistence can be stopped when needed
+  return () => {
+    unsubscribe();
+  };
 }
