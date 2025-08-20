@@ -1,8 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
-import { LazyMotion, domAnimation, useReducedMotion } from 'motion/react';
+import { LazyMotion, domAnimation } from 'motion/react';
 import { useDigitLineHeight } from '@hooks/useDigitLineHeight';
+import { useComputedFont } from '@hooks/useComputedFont';
+import { buildAnimateMask } from '@utils/digits';
 import { AnimatedDigitColumn } from './AnimatedDigitColumn';
 import styles from './AnimatedDigits.module.scss';
 
@@ -11,6 +13,7 @@ type AnimatedDigitsProps = {
   className?: string;
   announce?: boolean;
   remeasureKey?: unknown;
+  staticRightDigits?: number;
 };
 
 export const AnimatedDigits: React.FC<AnimatedDigitsProps> = ({
@@ -18,46 +21,29 @@ export const AnimatedDigits: React.FC<AnimatedDigitsProps> = ({
   className,
   announce = true,
   remeasureKey,
+  staticRightDigits = 2,
 }) => {
-  const prefersReducedMotion = useReducedMotion();
+  const tokens = useMemo<readonly string[]>(() => Array.from(value), [value]);
+
+  // Measure line height for vertical rail offset
   const { lineHeightPx, measureRef, remeasure } =
     useDigitLineHeight<HTMLSpanElement>([value, remeasureKey]);
+
+  // Compute the actual font shorthand applied to the visible root
   const rootRef = useRef<HTMLSpanElement>(null);
-  const [measuredFont, setMeasuredFont] = useState<string | undefined>(
-    undefined
-  );
+  const measuredFont = useComputedFont(rootRef, [remeasureKey, value]);
 
   useEffect(() => {
-    const el = rootRef.current;
-    if (!el) return;
-    const update = () => {
-      const cs = window.getComputedStyle(el);
-      // full shorthand: weight, size/line-height, family, etc.
-      setMeasuredFont(cs.font);
-      remeasure();
-    };
-    update();
-    const onResize = () => update();
-    window.addEventListener('resize', onResize, { passive: true });
-    return () => window.removeEventListener('resize', onResize);
+    remeasure();
   }, [remeasureKey, remeasure]);
 
-  const tokens = useMemo(() => value.split(''), [value]);
+  // Map<index, shouldAnimate>
+  const animateMask = useMemo(
+    () => buildAnimateMask(tokens, staticRightDigits),
+    [tokens, staticRightDigits]
+  );
 
-  const animateMask = useMemo(() => {
-    const digitPositions: number[] = [];
-
-    tokens.forEach((ch, idx) => {
-      if (ch >= '0' && ch <= '9') digitPositions.push(idx);
-    });
-
-    // Disable animation for last two numeric digits (hundredths)
-    const rightToLeft = digitPositions.slice().reverse();
-    const disabled = new Set<number>(rightToLeft.slice(0, 2));
-    const map = new Map<number, boolean>();
-    digitPositions.forEach((i) => map.set(i, !disabled.has(i)));
-    return map;
-  }, [tokens]);
+  const tokenAriaHidden = announce;
 
   return (
     <LazyMotion features={domAnimation} strict>
@@ -65,7 +51,7 @@ export const AnimatedDigits: React.FC<AnimatedDigitsProps> = ({
         {/* Hidden measurement element – rendered outside to avoid parent transforms */}
         {createPortal(
           <span
-            ref={measureRef as React.RefObject<HTMLSpanElement>}
+            ref={measureRef}
             className={styles.measure}
             style={
               measuredFont
@@ -87,7 +73,7 @@ export const AnimatedDigits: React.FC<AnimatedDigitsProps> = ({
               <span
                 key={`sep-${idx}`}
                 className={styles.sep}
-                aria-hidden={false}
+                aria-hidden={tokenAriaHidden}
               >
                 {ch}
               </span>
@@ -99,7 +85,6 @@ export const AnimatedDigits: React.FC<AnimatedDigitsProps> = ({
               key={`d-${idx}`}
               digit={ch}
               lineHeightPx={lineHeightPx}
-              prefersReducedMotion={!!prefersReducedMotion}
               animated={animateMask.get(idx) ?? true}
             />
           );

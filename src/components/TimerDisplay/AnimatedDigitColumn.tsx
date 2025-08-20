@@ -6,19 +6,17 @@ const DIGITS = Array.from({ length: 10 }, (_, i) => String(i));
 export const AnimatedDigitColumn = ({
   digit,
   lineHeightPx,
-  prefersReducedMotion,
   animated = true,
 }: {
   digit: string;
   lineHeightPx: number;
-  prefersReducedMotion: boolean;
   animated?: boolean;
 }) => {
   const index = digit.charCodeAt(0) - 48; // '0' -> 0 ... '9' -> 9
   const y =
     lineHeightPx > 0 && index >= 0 && index <= 9 ? -index * lineHeightPx : 0;
 
-  if (prefersReducedMotion || !animated) {
+  if (!animated) {
     return (
       <div className={styles.ticker} aria-hidden="true">
         <div
@@ -27,7 +25,10 @@ export const AnimatedDigitColumn = ({
         >
           <div
             className={styles.rail}
-            style={{ transform: `translateY(${y}px)` }}
+            style={{
+              transform: `translateY(${y}px)`,
+              transition: 'none',
+            }}
           >
             {DIGITS.map((d) => (
               <div
