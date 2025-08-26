@@ -29,6 +29,7 @@ export const Header = () => {
             className={styles.settings}
             onClick={() => dispatch(openSettings())}
             aria-label="Settings"
+            data-tour="open-settings"
           >
             <Settings color="black" size={24} />
           </button>

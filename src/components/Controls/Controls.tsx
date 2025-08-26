@@ -7,9 +7,7 @@ import styles from './Controls.module.scss';
 
 export const Controls = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const isRunning = useSelector(
-    (state: RootState) => state.stopwatch.status === 'running'
-  );
+  const isRunning = useSelector((state: RootState) => state.stopwatch.status === 'running');
 
   const handleStart = () => {
     dispatch(start());
@@ -35,6 +33,7 @@ export const Controls = () => {
             className={clsx('btn', 'btn--icon', styles['button-controls'])}
             onClick={handlePause}
             aria-label="Pause stopwatch"
+            data-tour="pause"
           >
             <Pause />
             {'Pause'}
@@ -43,6 +42,7 @@ export const Controls = () => {
             className={clsx('btn', 'btn--icon', styles['button-controls'])}
             onClick={handleLap}
             aria-label="Lap stopwatch"
+            data-tour="add-lap"
           >
             <Flag />
             {'Lap'}

@@ -12,14 +12,8 @@
   --color-primary-transparent: hsl(23 100% 50% / 10%);
 
   /* === Primary gradients === */
-  --color-primary-gradient: #{functions.primary-gradient(
-      135deg,
-      hsl(23, 100%, 50%)
-    )};
-  --color-primary-gradient-dark: #{functions.primary-gradient(
-      135deg,
-      hsl(23, 100%, 44%)
-    )};
+  --color-primary-gradient: #{functions.primary-gradient(135deg, hsl(23, 100%, 50%))};
+  --color-primary-gradient-dark: #{functions.primary-gradient(135deg, hsl(23, 100%, 44%))};
 
   /* === Base UI colors === */
   --color-background: #efefef;
@@ -53,22 +47,10 @@
   --color-pink-gradient: linear-gradient(135deg, #ff99c0 0%, #f06686 100%);
 
   --color-gray-dark-gradient: linear-gradient(135deg, #808080 0%, #616161 100%);
-  --color-pench-dark-gradient: linear-gradient(
-    135deg,
-    #e6a360 0%,
-    #f2785a 100%
-  );
-  --color-green-dark-gradient: linear-gradient(
-    135deg,
-    #47dca5 0%,
-    #088c86 100%
-  );
+  --color-pench-dark-gradient: linear-gradient(135deg, #e6a360 0%, #f2785a 100%);
+  --color-green-dark-gradient: linear-gradient(135deg, #47dca5 0%, #088c86 100%);
   --color-blue-dark-gradient: linear-gradient(135deg, #45b2d9 0%, #3481e5 100%);
-  --color-purple-dark-gradient: linear-gradient(
-    135deg,
-    #a366f5 0%,
-    #534bec 100%
-  );
+  --color-purple-dark-gradient: linear-gradient(135deg, #a366f5 0%, #534bec 100%);
   --color-pink-dark-gradient: linear-gradient(135deg, #ee58bd 0%, #e55d7f 100%);
 
   /* === Button === */
@@ -82,11 +64,11 @@
 
 /* === Fonts === */
 $font-family-base: 'Montserrat', system-ui, Avenir, Helvetica, Arial, sans-serif;
-$font-family-numbers: 'Roboto Mono', system-ui, Avenir, Helvetica, Arial,
-  sans-serif;
+$font-family-numbers: 'Roboto Mono', system-ui, Avenir, Helvetica, Arial, sans-serif;
 
 /* === Border radius === */
 $border-radius: 0.5rem;
+$border-radius-small: 0.25rem;
 $border-radius-large: 1rem;
 
 /* === Box shadow === */

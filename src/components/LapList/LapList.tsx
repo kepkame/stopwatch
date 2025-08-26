@@ -22,7 +22,7 @@ export const LapList: React.FC<LapListProps> = ({
           {measuring
             .slice()
             .reverse()
-            .map((item) => (
+            .map((item, index) => (
               <LapItem
                 key={item.lap}
                 lap={item.lap}
@@ -30,6 +30,7 @@ export const LapList: React.FC<LapListProps> = ({
                 diff={item.diff}
                 colorIndex={item.colorIndex}
                 onChangeColor={onChangeColor}
+                isLatest={index === 0}
               />
             ))}
         </m.div>

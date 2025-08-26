@@ -15,6 +15,7 @@ export const LapItem = ({
   diff,
   colorIndex,
   onChangeColor,
+  isLatest,
 }: LapItemProps) => {
   const EASE: [number, number, number, number] = [0.2, 0, 0, 1];
   const DURATION_S = 0.4;
@@ -58,6 +59,7 @@ export const LapItem = ({
       aria-label={`Lap ${lap}`}
       tabIndex={0}
       ref={containerRef}
+      data-tour={isLatest ? 'lap-item-latest' : undefined}
     >
       <m.div
         ref={overlayRef}

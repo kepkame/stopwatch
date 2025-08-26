@@ -7,6 +7,7 @@ type HeroActionButtonProps = {
   onClick: () => void;
   sizeIcon?: number;
   isRound?: boolean;
+  dataTour?: string;
 };
 
 export const HeroActionButton = ({
@@ -15,6 +16,7 @@ export const HeroActionButton = ({
   onClick,
   sizeIcon = 42,
   isRound = true,
+  dataTour,
 }: HeroActionButtonProps) => {
   return (
     <button
@@ -26,6 +28,7 @@ export const HeroActionButton = ({
         isRound && styles.round
       )}
       aria-label={label}
+      data-tour={dataTour}
     >
       <Icon size={sizeIcon} />
     </button>

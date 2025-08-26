@@ -52,6 +52,7 @@ export const TimerDisplay = () => {
           styles.display,
           changeTimeByTap && styles.displayClickable
         )}
+        data-tour="timer-display"
         role={changeTimeByTap ? 'button' : undefined}
         aria-label={changeTimeByTap ? ariaLabel : undefined}
         aria-disabled={changeTimeByTap ? undefined : true}

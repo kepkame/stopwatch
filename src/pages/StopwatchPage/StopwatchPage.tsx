@@ -61,6 +61,7 @@ const StopwatchPage = () => {
               icon={Play}
               label="Start stopwatch"
               onClick={handleStart}
+              dataTour="play"
             />
           ) : (
             <Controls />

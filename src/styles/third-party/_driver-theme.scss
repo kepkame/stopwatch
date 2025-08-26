@@ -1,0 +1,193 @@
+@use '@styles/variables';
+@use '@styles/theme';
+
+@import 'driver.js/dist/driver.css';
+
+.driver-popover {
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  border-radius: variables.$border-radius;
+  box-shadow: variables.$box-shadow-lg;
+
+  html[data-theme='black'] & {
+    border: 1px solid var(--color-text-primary);
+    box-shadow: none;
+  }
+}
+
+.driver-popover-arrow {
+  color: var(--color-background);
+  border-width: 8px;
+
+  &-side {
+    &-bottom {
+      border-bottom-color: var(--color-background);
+
+      html[data-theme='black'] & {
+        border-bottom-color: var(--color-text-primary);
+      }
+    }
+
+    &-top {
+      border-top-color: var(--color-background);
+
+      html[data-theme='black'] & {
+        border-top-color: var(--color-text-primary);
+      }
+    }
+
+    &-right {
+      border-right-color: var(--color-background);
+
+      html[data-theme='black'] & {
+        border-right-color: var(--color-text-primary);
+      }
+    }
+
+    &-left {
+      border-left-color: var(--color-background);
+
+      html[data-theme='black'] & {
+        border-left-color: var(--color-text-primary);
+      }
+    }
+  }
+}
+
+.driver-popover-arrow-side-top.driver-popover-arrow-align-center,
+.driver-popover-arrow-side-bottom.driver-popover-arrow-align-center {
+  margin-left: -4px;
+}
+
+.driver-popover-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  margin-bottom: 6px;
+}
+
+.driver-popover-description {
+  .arrow {
+    display: inline-block;
+    line-height: 0;
+    border: 1px solid var(--color-text-primary);
+    border-radius: 4px;
+    padding: 7px 3px 9px;
+  }
+}
+
+.driver-popover-footer {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.driver-popover-navigation-btns {
+  gap: 4px;
+}
+
+.driver-popover-footer {
+  button {
+    text-shadow: none;
+  }
+
+  .driver-popover-next-btn,
+  .driver-popover-done-btn {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    background-color: var(
+      --btn-surface-color,
+      hsl(var(--accent-h) var(--accent-s) var(--accent-l))
+    );
+    border: var(--btn-border-width) solid var(--btn-border-color);
+    border-radius: variables.$border-radius-small;
+    padding: 6px 14px;
+    transition: background-color variables.$duration ease-in-out;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      background-color: hsl(var(--accent-h) var(--accent-hover-s) var(--accent-hover-l));
+    }
+
+    &:disabled {
+      background-color: var(--btn-surface-disabled, var(--color-disabled));
+      cursor: not-allowed;
+    }
+  }
+
+  .driver-popover-prev-btn {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    background-color: transparent;
+    border: 2px solid var(--color-text-primary);
+    padding: 4px 12px;
+    transition: color variables.$duration ease-in-out,
+      background-color variables.$duration ease-in-out, border-color variables.$duration ease-in-out,
+      opacity variables.$duration ease-in-out;
+    opacity: 0.7;
+
+    &:hover,
+    &:focus {
+      color: var(--color-text-secondary);
+      background-color: hsl(var(--accent-h) var(--accent-hover-s) var(--accent-hover-l));
+      border-color: var(
+        --btn-border-color,
+        hsl(var(--accent-h) var(--accent-hover-s) var(--accent-hover-l))
+      );
+      opacity: 1;
+
+      html[data-theme='dark'] & {
+        border-color: hsl(var(--accent-h) var(--accent-hover-s) var(--accent-hover-l));
+      }
+    }
+
+    &:disabled {
+      color: var(--color-gray);
+      background-color: var(--color-disabled-transparent);
+      border-color: var(--color-gray);
+    }
+
+    html[data-theme='black'] & {
+      opacity: 1;
+    }
+  }
+}
+
+.driver-popover-close-btn {
+  width: auto;
+  height: auto;
+  top: 8px;
+  right: 8px;
+  font-size: 0;
+  line-height: 0;
+  color: var(--color-text-primary);
+  border: 0;
+  border-radius: variables.$border-radius;
+  padding: 4px;
+  opacity: 0.6;
+  transition: color variables.$duration ease-in-out, opacity variables.$duration ease-in-out;
+  cursor: pointer;
+
+  .js-focus-visible &:focus:not(.focus-visible) {
+    color: var(--color-text-primary);
+    opacity: 0.6;
+  }
+
+  &:focus,
+  &:hover {
+    color: var(--color-primary);
+    background-color: transparent;
+    border-color: var(--color-primary);
+    opacity: 1;
+
+    html[data-theme='black'] & {
+      color: var(--color-text-primary);
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

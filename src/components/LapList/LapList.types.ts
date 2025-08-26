@@ -7,6 +7,7 @@ export interface LapData {
 
 export interface LapItemProps extends LapData {
   onChangeColor: (lap: number, delta: 1 | -1) => void;
+  isLatest?: boolean;
 }
 
 export interface LapListProps {
