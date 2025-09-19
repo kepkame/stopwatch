@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import clsx from 'clsx';
 import { Pause, Flag, Play, RefreshCcw } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -5,7 +6,7 @@ import type { RootState, AppDispatch } from '@store/store';
 import { start, pause, reset, addLap } from '@store/slices/stopwatchSlice';
 import styles from './Controls.module.scss';
 
-export const Controls = () => {
+const ControlsComponent = () => {
   const dispatch = useDispatch<AppDispatch>();
   const isRunning = useSelector((state: RootState) => state.stopwatch.status === 'running');
 
@@ -71,3 +72,5 @@ export const Controls = () => {
     </div>
   );
 };
+
+export const Controls = memo(ControlsComponent);

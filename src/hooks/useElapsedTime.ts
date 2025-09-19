@@ -8,12 +8,18 @@ type Status = 'idle' | 'running' | 'paused';
 export function useElapsedTime(
   startEpochMs: number | null,
   accumulatedMs: number,
-  status: Status
+  status: Status,
+  enabled: boolean = true,
 ) {
   const [elapsed, setElapsed] = useState(accumulatedMs);
 
   useEffect(() => {
-    let rafId: number;
+    if (!enabled) {
+      setElapsed(accumulatedMs);
+      return;
+    }
+
+    let rafId = 0;
 
     if (status === 'running' && startEpochMs !== null) {
       // Continuously updates elapsed time using requestAnimationFrame
@@ -30,7 +36,7 @@ export function useElapsedTime(
     }
 
     return () => cancelAnimationFrame(rafId);
-  }, [startEpochMs, accumulatedMs, status]);
+  }, [startEpochMs, accumulatedMs, status, enabled]);
 
   return elapsed;
 }

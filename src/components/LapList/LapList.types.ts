@@ -1,16 +1,21 @@
 export interface LapData {
   lap: number;
   time?: string;
-  diff: string;
+  diff?: string;
   colorIndex: number;
 }
 
-export interface LapItemProps extends LapData {
+export interface LapMeasuring extends LapData {
+  prevTs: number;
+  isOpen: boolean;
+}
+
+export interface LapItemProps extends LapMeasuring {
   onChangeColor: (lap: number, delta: 1 | -1) => void;
   isLatest?: boolean;
 }
 
 export interface LapListProps {
-  measuring: LapData[];
+  measuring: LapMeasuring[];
   onChangeColor: (lap: number, delta: 1 | -1) => void;
 }

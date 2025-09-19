@@ -1,22 +1,31 @@
+import { memo } from 'react';
+import { useSelector } from 'react-redux';
 import clsx from 'clsx';
 import { m } from 'motion/react';
+import { useElapsedTime } from '@hooks/useElapsedTime';
 import { useLapSwipe } from '@hooks/useLapSwipe';
-import {
-  cyclicIndex,
-  PALETTE_LENGTH,
-  normalizeColorIndex,
-} from '@utils/lapSwipeConfig';
+import type { RootState } from '@store/store';
+import { formatTime } from '@utils/time/formatTime';
+import { cyclicIndex, PALETTE_LENGTH, normalizeColorIndex } from '@utils/lapSwipeConfig';
 import type { LapItemProps } from './LapList.types';
 import styles from './LapList.module.scss';
 
-export const LapItem = ({
+const LapItemComponent = ({
   lap,
   time,
   diff,
   colorIndex,
   onChangeColor,
   isLatest,
+  isOpen,
+  prevTs,
 }: LapItemProps) => {
+  const { startEpochMs, accumulatedMs, status } = useSelector((s: RootState) => s.stopwatch);
+
+  const enableLive = !!(isLatest && isOpen);
+  const elapsedMs = useElapsedTime(startEpochMs, accumulatedMs, status, enableLive);
+  const liveDiff = enableLive ? `+${formatTime(Math.max(0, elapsedMs - prevTs))}` : diff;
+
   const EASE: [number, number, number, number] = [0.2, 0, 0, 1];
   const DURATION_S = 0.4;
 
@@ -66,7 +75,7 @@ export const LapItem = ({
         className={clsx(
           styles['lap__overlay'],
           overlayRtl && styles.rtl,
-          overlayRtl ? styles.roundedRtl : styles.rounded
+          overlayRtl ? styles.roundedRtl : styles.rounded,
         )}
         data-color-index={previewIndex}
         aria-hidden
@@ -74,8 +83,10 @@ export const LapItem = ({
       <div className={styles['lap__content']}>
         <span className={styles.number}>{`Lap ${lap}`}</span>
         {time ? <span className={styles.time}>{time}</span> : null}
-        <span className={styles.diff}>{diff}</span>
+        <span className={styles.diff}>{liveDiff}</span>
       </div>
     </m.div>
   );
 };
+
+export const LapItem = memo(LapItemComponent);
