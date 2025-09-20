@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import { LazyMotion, domMax, m, useReducedMotion } from 'motion/react';
 import { LapItem } from './LapItem';
 import type { LapListProps } from './LapList.types';
@@ -9,8 +9,6 @@ const LapListComponent: React.FC<LapListProps> = ({ measuring, onChangeColor }) 
   const EASE: [number, number, number, number] = [0.2, 0, 0, 1];
   const DURATION_S = 0.3;
 
-  const reversed = useMemo(() => [...measuring].reverse(), [measuring]);
-
   return (
     <div className={styles.list}>
       <LazyMotion features={domMax} strict>
@@ -19,7 +17,7 @@ const LapListComponent: React.FC<LapListProps> = ({ measuring, onChangeColor }) 
           layout={!prefersReducedMotion}
           transition={{ layout: { duration: DURATION_S, ease: EASE } }}
         >
-          {reversed.map((item, index) => (
+          {measuring.map((item) => (
             <LapItem
               key={item.lap}
               lap={item.lap}
@@ -27,7 +25,7 @@ const LapListComponent: React.FC<LapListProps> = ({ measuring, onChangeColor }) 
               diff={item.diff}
               colorIndex={item.colorIndex}
               onChangeColor={onChangeColor}
-              isLatest={index === 0}
+              isLatest={item.isLatest}
               isOpen={item.isOpen}
               prevTs={item.prevTs}
             />

@@ -1,21 +1,12 @@
-export interface LapData {
-  lap: number;
-  time?: string;
-  diff?: string;
-  colorIndex: number;
-}
+import type { LapStableItem } from '@store/selectors/stopwatchSelectors';
 
-export interface LapMeasuring extends LapData {
-  prevTs: number;
-  isOpen: boolean;
-}
+export type LapColorHandler = (lapId: number, delta: 1 | -1) => void;
 
-export interface LapItemProps extends LapMeasuring {
-  onChangeColor: (lap: number, delta: 1 | -1) => void;
-  isLatest?: boolean;
+export interface LapItemProps extends LapStableItem {
+  onChangeColor: LapColorHandler;
 }
 
 export interface LapListProps {
-  measuring: LapMeasuring[];
-  onChangeColor: (lap: number, delta: 1 | -1) => void;
+  measuring: ReadonlyArray<LapStableItem>;
+  onChangeColor: LapColorHandler;
 }

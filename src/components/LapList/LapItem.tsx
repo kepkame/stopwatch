@@ -20,7 +20,9 @@ const LapItemComponent = ({
   isOpen,
   prevTs,
 }: LapItemProps) => {
-  const { startEpochMs, accumulatedMs, status } = useSelector((s: RootState) => s.stopwatch);
+  const startEpochMs = useSelector((s: RootState) => s.stopwatch.startEpochMs);
+  const accumulatedMs = useSelector((s: RootState) => s.stopwatch.accumulatedMs);
+  const status = useSelector((s: RootState) => s.stopwatch.status);
 
   const enableLive = !!(isLatest && isOpen);
   const elapsedMs = useElapsedTime(startEpochMs, accumulatedMs, status, enableLive);

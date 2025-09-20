@@ -56,10 +56,7 @@ const stopwatchSlice = createSlice({
       if (state.status === 'running' && state.startEpochMs !== null) {
         const now = Date.now();
         // Lock: if the previous Lap was too recent — ignore the press
-        if (
-          state.lastLapEpochMs !== null &&
-          now - state.lastLapEpochMs < MIN_LAP_GUARD_MS
-        ) {
+        if (state.lastLapEpochMs !== null && now - state.lastLapEpochMs < MIN_LAP_GUARD_MS) {
           return;
         }
 
@@ -97,7 +94,7 @@ const stopwatchSlice = createSlice({
         id: number;
         colorIndex: number;
         paletteLength: number;
-      }>
+      }>,
     ) {
       const { id, colorIndex, paletteLength } = action.payload;
       const lap = state.laps.find((l) => l.id === id);
