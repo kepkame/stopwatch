@@ -22,6 +22,9 @@
   position: relative;
   display: inline-block;
   min-height: 1.2em;
+  background-color: transparent;
+  border: none;
+  margin: 0;
   padding: 4px 0;
   user-select: none;
   -webkit-user-select: none;
@@ -32,8 +35,7 @@
 }
 
 .value {
-  transition: transform variables.$duration ease-in-out,
-    opacity variables.$duration ease-in-out;
+  transition: transform variables.$duration ease-in-out, opacity variables.$duration ease-in-out;
   will-change: transform, opacity;
 }
 
@@ -59,8 +61,7 @@
   color: var(--color-text-secondary);
   opacity: 0;
   transform: translate(111px, 121px) scale(0.32);
-  transition: color variables.$duration ease-in-out,
-    opacity variables.$duration ease-in-out,
+  transition: color variables.$duration ease-in-out, opacity variables.$duration ease-in-out,
     transform variables.$duration ease-in;
   pointer-events: none;
 }
