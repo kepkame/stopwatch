@@ -7,7 +7,7 @@ interface SettingsState {
   alertIntervalSec: number;
   changeTimeByTap: boolean;
   keepScreenOn: boolean;
-  theme: string;
+  theme: Theme;
   isSettingsOpen: boolean;
 }
 

@@ -2,11 +2,14 @@ import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import clsx from 'clsx';
 import { m } from 'motion/react';
+import type { RootState } from '@store/store';
+import { useAppSelector } from '@store/hooks';
+import { selectTheme } from '@store/selectors/settingsSelectors';
 import { useElapsedTime } from '@hooks/useElapsedTime';
 import { useLapSwipe } from '@hooks/useLapSwipe';
-import type { RootState } from '@store/store';
+import { THEME_META } from '@shared/config/settings';
 import { formatTime } from '@utils/time/formatTime';
-import { cyclicIndex, PALETTE_LENGTH, normalizeColorIndex } from '@utils/lapSwipeConfig';
+import { cyclicIndex, normalizeColorIndex } from '@utils/lapSwipeConfig';
 import type { LapItemProps } from './LapList.types';
 import styles from './LapList.module.scss';
 
@@ -44,7 +47,9 @@ const LapItemComponent = ({
     onKeyDown,
   } = useLapSwipe({ onChangeColor: changeColorBy });
 
-  const length = PALETTE_LENGTH();
+  const theme = useAppSelector(selectTheme);
+  const length = THEME_META[theme].lapPaletteLength;
+
   const normalized = normalizeColorIndex(colorIndex, length);
   const previewIndex = cyclicIndex(normalized, overlayRtl ? -1 : 1, length);
 

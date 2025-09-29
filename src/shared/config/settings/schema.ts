@@ -1,23 +1,14 @@
-export const THEME_VALUES = [
-  'lightPeach',
-  'darkPeach',
-  'light',
-  'dark',
-  'black',
-] as const;
+export const THEME_META = {
+  lightPeach: { label: 'Light Peach', lapPaletteLength: 6 },
+  darkPeach: { label: 'Dark Peach', lapPaletteLength: 6 },
+  light: { label: 'Light', lapPaletteLength: 2 },
+  dark: { label: 'Dark', lapPaletteLength: 2 },
+  black: { label: 'Black', lapPaletteLength: 2 },
+} as const;
 
-export type Theme = (typeof THEME_VALUES)[number];
+export type Theme = keyof typeof THEME_META;
 
-export const THEME_LABELS: Record<Theme, string> = {
-  lightPeach: 'Light Peach',
-  darkPeach: 'Dark Peach',
-  light: 'Light',
-  dark: 'Dark',
-  black: 'Black',
-};
-
-export const isTheme = (v: unknown): v is Theme =>
-  THEME_VALUES.includes(v as Theme);
+export const isTheme = (v: unknown): v is Theme => typeof v === 'string' && v in THEME_META;
 
 export const SETTINGS_DEFAULTS = {
   soundEnabled: false,

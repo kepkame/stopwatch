@@ -1,8 +1,1 @@
-export {
-  THEME_VALUES,
-  type Theme,
-  THEME_LABELS,
-  isTheme,
-  SETTINGS_DEFAULTS,
-  type SettingsShape,
-} from './schema';
+export { THEME_META, type Theme, isTheme, SETTINGS_DEFAULTS, type SettingsShape } from './schema';

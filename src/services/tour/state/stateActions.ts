@@ -30,5 +30,5 @@ export const bumpLatestLapColor = (store: Store): void => {
   const length = PALETTE_LENGTH();
   const next = cyclicIndex(latest.colorIndex, 1, length);
 
-  store.dispatch(setLapColorIndex({ id: latest.id, colorIndex: next, paletteLength: length }));
+  store.dispatch(setLapColorIndex({ id: latest.id, colorIndex: next }));
 };

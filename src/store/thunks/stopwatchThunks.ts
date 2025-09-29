@@ -1,6 +1,6 @@
 import type { AppDispatch, RootState } from '@store/types';
 import { setLapColorIndex } from '@store/slices/stopwatchSlice';
-import { PALETTE_LENGTH, cyclicIndex } from '@utils/lapSwipeConfig';
+import { PALETTE_SIZE, cyclicIndex } from '@utils/lapSwipeConfig';
 
 export type Delta = 1 | -1;
 
@@ -16,14 +16,13 @@ export const bumpLapColor =
     const lap = stopwatch.laps.find((l) => l.id === lapId);
     if (!lap) return;
 
-    const len = PALETTE_LENGTH();
-    const next = cyclicIndex(lap.colorIndex, delta, len);
+    // const len = PALETTE_LENGTH();
+    const next = cyclicIndex(lap.colorIndex, delta, PALETTE_SIZE);
 
     dispatch(
       setLapColorIndex({
         id: lapId,
         colorIndex: next,
-        paletteLength: len,
       }),
     );
   };

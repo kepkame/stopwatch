@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { normalizeColorIndex } from '@utils/lapSwipeConfig';
+import { normalizeColorIndex, PALETTE_SIZE } from '@utils/lapSwipeConfig';
 
 const MIN_LAP_GUARD_MS = 400;
 
@@ -93,13 +93,12 @@ const stopwatchSlice = createSlice({
       action: PayloadAction<{
         id: number;
         colorIndex: number;
-        paletteLength: number;
       }>,
     ) {
-      const { id, colorIndex, paletteLength } = action.payload;
+      const { id, colorIndex } = action.payload;
       const lap = state.laps.find((l) => l.id === id);
       if (!lap) return;
-      lap.colorIndex = normalizeColorIndex(colorIndex, paletteLength);
+      lap.colorIndex = normalizeColorIndex(colorIndex, PALETTE_SIZE);
     },
     normalizeAllLapColors(state, action: PayloadAction<number>) {
       const length = Math.max(1, action.payload | 0);
