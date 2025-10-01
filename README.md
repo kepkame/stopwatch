@@ -2,7 +2,7 @@
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?style=flat) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat)](./LICENSE)
 
-<a href="https://github.com/kepkame/stopwatch" target="_blank" rel="noopener noreferrer">Live Demo</a>
+<a href="https://stopwatch-laps.vercel.app/" target="_blank" rel="noopener noreferrer">Live Demo</a>
 
 This web application is a stopwatch and interval timer designed for athletes.
 It allows users to track workout time, record laps with color coding, switch timer modes by tapping, and receive sound notifications after each interval.
